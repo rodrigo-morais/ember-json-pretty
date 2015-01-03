@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ember-json-pretty
 
 This README outlines the details of collaborating on this Ember addon.
@@ -23,3 +24,9 @@ This README outlines the details of collaborating on this Ember addon.
 * `ember build`
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+=======
+ember-json-pretty
+=================
+
+Ember addon to json-pretty
+>>>>>>> 64a215f4941a94861d88771f02235224ab6e075d
