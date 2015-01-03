@@ -1,0 +1,29 @@
+pre
+{
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 0px;
+    margin: 0px 0 2%; 
+}
+
+.json-brace,
+.json-bracket
+{
+    position: relative;
+    float: left;
+}
+
+.json-key
+{
+    color: brown;
+}
+
+.json-value
+{
+    color: navy;
+}
+
+.json-string
+{
+    color: olive;
+}
