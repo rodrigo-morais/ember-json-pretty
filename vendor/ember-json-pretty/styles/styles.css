@@ -4,7 +4,7 @@ pre
     float: left;
     width: 100%;
     background-color: ghostwhite;
-    border: 1px solid silver;
+    border: 1px solid #A52A2Asilver;
     padding: 0px;
     margin: 0px 0 2%;
 }
@@ -29,7 +29,7 @@ pre code
 
 .json-key
 {
-    color: brown;
+    color: #A52A2A;
 }
 
 .json-value

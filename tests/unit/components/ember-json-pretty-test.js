@@ -1,6 +1,16 @@
 import Ember from "ember";
 import {test, moduleForComponent} from "ember-qunit";
 
+var _rgb2hex = function (rgb) {
+    if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2).toUpperCase();
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+};
+
 moduleForComponent('ember-json-pretty');
 
 test('verify if tag name is PRE', function(){
@@ -155,4 +165,56 @@ test('verify if last element in JSON is brace', function(){
     lastSpan = Ember.$(code).find('span').last();
 
     ok(Ember.$(lastSpan).hasClass('json-brace'));
+});
+
+test('verify standard color of key', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, keySpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    keySpan = Ember.$(code).find('.json-key');
+
+    equal(_rgb2hex(Ember.$(keySpan).css('color')), '#A52A2A');
+});
+
+test('verify change color of key', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, keySpan;
+console.log('test1');
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'keyColor',
+                    '#00FF7F'
+                );
+    });
+console.log('test2');
+    code = Ember.$(this.$()[0]);
+    
+console.log('test3');
+    keySpan = Ember.$(code).find('.json-key');
+    equal(_rgb2hex(Ember.$(keySpan).css('color')), '#00FF7F');
 });

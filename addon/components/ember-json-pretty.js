@@ -1,6 +1,6 @@
 ﻿import Ember from 'ember';
 
-var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
+var _replacer = function(match, pIndent, pKey, pVal, pEnd, keyColor) {
     var key = '<span class=json-key>';
     var val = '<span class=json-value>';
     var str = '<span class=json-string>';
@@ -24,21 +24,33 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     return r + (pEnd || '');
 };
 
-var _prettyPrint = function(obj) {
+var _replaceKeyColor = function(jsonHTML, keyColor){
+    return jsonHTML
+            .replace(   /<span class=json-key>/g,
+                        '<span class=json-key style="color:' + keyColor + '">'
+                    );
+};
+
+var _prettyPrint = function(obj, keyColor) {
     var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?([,[}])?$/mg,
         jsonHTML = JSON.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;')
             .replace(jsonLine, _replacer);
 
+        jsonHTML = _replaceKeyColor(jsonHTML, keyColor);
+
     return jsonHTML;
 };
 
 export default Ember.Component.extend({
     tagName: 'pre',
+    keyColor: '#A52A2A',
     pretty: function () {
-        var jsonObj = this.get('jsonObj');
+        var jsonObj = this.get('jsonObj'),
+            keyColor = this.get('keyColor'),
+            json_pretty = _prettyPrint(jsonObj, keyColor);
         
-        return Ember.String.htmlSafe(_prettyPrint(jsonObj));
-    }.property('jsonObj')
+        return Ember.String.htmlSafe(json_pretty);
+    }.property('jsonObj'),
 });
