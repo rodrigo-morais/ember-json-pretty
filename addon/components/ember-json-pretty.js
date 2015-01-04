@@ -35,6 +35,7 @@ var _prettyPrint = function(obj) {
 };
 
 export default Ember.Component.extend({
+    tagName: 'pre',
     pretty: function () {
         var jsonObj = this.get('jsonObj');
         
