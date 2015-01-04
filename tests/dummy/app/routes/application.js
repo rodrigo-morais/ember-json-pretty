@@ -9,6 +9,6 @@ export default Ember.Route.extend({
                                 { "name": "Service 1"}
                             ]
                     }
-                }
+                };
     }
 });
