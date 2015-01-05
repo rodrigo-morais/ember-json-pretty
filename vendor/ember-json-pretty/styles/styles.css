@@ -30,7 +30,6 @@ pre code
 .json-key
 {
     color: #A52A2A;
-    background-color: #FFFFFF00;
 }
 
 .json-value
@@ -40,5 +39,5 @@ pre code
 
 .json-string
 {
-    color: olive;
+    color: #C0FF3E;
 }
