@@ -485,3 +485,105 @@ test('verify changed highlight color of string node', function(){
 
     equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#FFBBFF');
 });
+
+test('verify standard color of brace node', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, braceSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    braceSpan = Ember.$(code).find('.json-brace');
+
+    equal(_rgb2hex(Ember.$(braceSpan).css('color')), '#000000');
+});
+
+test('verify changed color of brace node', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, braceSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'braceColor',
+                    '#FF34B3'
+                );
+    });
+
+    code = Ember.$(this.$()[0]);
+    braceSpan = Ember.$(code).find('.json-brace');
+
+    equal(_rgb2hex(Ember.$(braceSpan).css('color')), '#FF34B3');
+});
+
+test('verify standard highlight color of brace node', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, braceSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    braceSpan = Ember.$(code).find('.json-brace');
+
+    equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#00000000');
+});
+
+test('verify changed highlight color of brace node', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, braceSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'braceHighlight',
+                    '#FFBBFF'
+                );
+    });
+
+    code = Ember.$(this.$()[0]);    
+    braceSpan = Ember.$(code).find('.json-brace');
+
+    equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#FFBBFF');
+});

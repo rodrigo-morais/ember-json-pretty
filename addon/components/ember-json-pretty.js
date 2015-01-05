@@ -45,10 +45,18 @@ var _replaceStringStyle = function(jsonHTML, stringColor, stringHighlight){
                     );
 };
 
+var _replaceBraceStyle = function(jsonHTML, braceColor, braceHighlight){
+    return jsonHTML
+            .replace(   /<span class=json-brace>/g,
+                        '<span class=json-brace style=" color:' + braceColor + '; background-color:' + braceHighlight + ';">'
+                    );
+};
+
 var _prettyPrint = function(    obj,
                                 keyColor, keyHighlight,
                                 valueColor, valueHighlight,
-                                stringColor, stringHighlight) {
+                                stringColor, stringHighlight,
+                                braceColor, braceHighlight) {
     var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?([,[}])?$/mg,
         jsonHTML = JSON.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
@@ -58,6 +66,7 @@ var _prettyPrint = function(    obj,
         jsonHTML = _replaceKeyStyle(jsonHTML, keyColor, keyHighlight);
         jsonHTML = _replaceValueStyle(jsonHTML, valueColor, valueHighlight);
         jsonHTML = _replaceStringStyle(jsonHTML, stringColor, stringHighlight);
+        jsonHTML = _replaceBraceStyle(jsonHTML, braceColor, braceHighlight);
 
     return jsonHTML;
 };
@@ -70,6 +79,8 @@ export default Ember.Component.extend({
     valueHighlight: '#FFFFFF00',
     stringColor: '#C0FF3E',
     stringHighlight: '#FFFFFF00',
+    braceColor: '#000000',
+    braceHighlight: '#FFFFFF00',
     pretty: function () {
         var jsonObj = this.get('jsonObj'),
             keyColor = this.get('keyColor'),
@@ -78,10 +89,13 @@ export default Ember.Component.extend({
             valueHighlight = this.get('valueHighlight'),
             stringColor = this.get('stringColor'),
             stringHighlight = this.get('stringHighlight'),
+            braceColor = this.get('braceColor'),
+            braceHighlight = this.get('braceHighlight'),
             json_pretty = _prettyPrint( jsonObj,
                                         keyColor, keyHighlight,
                                         valueColor, valueHighlight,
-                                        stringColor, stringHighlight);
+                                        stringColor, stringHighlight,
+                                        braceColor, braceHighlight);
         
         return Ember.String.htmlSafe(json_pretty);
     }.property('jsonObj'),
