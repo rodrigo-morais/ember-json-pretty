@@ -2,13 +2,26 @@ import Ember from "ember";
 import {test, moduleForComponent} from "ember-qunit";
 
 var _rgb2hex = function (rgb) {
+    var isRGBA = false;
+
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
 
-    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    isRGBA = rgb.indexOf('rgba') > -1;
+
+    rgb = isRGBA
+                ? rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/)
+                : rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
     function hex(x) {
         return ("0" + parseInt(x).toString(16)).slice(-2).toUpperCase();
+    };
+
+    if(isRGBA){
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) + hex(rgb[4]);
     }
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    else{
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+     }
 };
 
 moduleForComponent('ember-json-pretty');
@@ -190,11 +203,11 @@ test('verify standard color of key', function(){
     equal(_rgb2hex(Ember.$(keySpan).css('color')), '#A52A2A');
 });
 
-test('verify change color of key', function(){
+test('verify changed color of key', function(){
     var component = this.subject(),
         jsonObj,
         code, keySpan;
-console.log('test1');
+
     Ember.run(function(){
         jsonObj = {
             'key1': 'value1',
@@ -211,10 +224,60 @@ console.log('test1');
                     '#00FF7F'
                 );
     });
-console.log('test2');
+
     code = Ember.$(this.$()[0]);
-    
-console.log('test3');
     keySpan = Ember.$(code).find('.json-key');
+
     equal(_rgb2hex(Ember.$(keySpan).css('color')), '#00FF7F');
+});
+
+test('verify standard highlight color of key', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, keySpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    keySpan = Ember.$(code).find('.json-key');
+
+    equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00000000');
+});
+
+test('verify changed highlight color of key', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, keySpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'keyHighlight',
+                    '#00FFFF'
+                );
+    });
+
+    code = Ember.$(this.$()[0]);    
+    keySpan = Ember.$(code).find('.json-key');
+
+    equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00FFFF');
 });
