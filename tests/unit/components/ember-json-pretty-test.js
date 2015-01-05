@@ -180,7 +180,7 @@ test('verify if last element in JSON is brace', function(){
     ok(Ember.$(lastSpan).hasClass('json-brace'));
 });
 
-test('verify standard color of key', function(){
+test('verify standard color of key node', function(){
     var component = this.subject(),
         jsonObj,
         code, keySpan;
@@ -203,7 +203,7 @@ test('verify standard color of key', function(){
     equal(_rgb2hex(Ember.$(keySpan).css('color')), '#A52A2A');
 });
 
-test('verify changed color of key', function(){
+test('verify changed color of key node', function(){
     var component = this.subject(),
         jsonObj,
         code, keySpan;
@@ -231,7 +231,7 @@ test('verify changed color of key', function(){
     equal(_rgb2hex(Ember.$(keySpan).css('color')), '#00FF7F');
 });
 
-test('verify standard highlight color of key', function(){
+test('verify standard highlight color of key node', function(){
     var component = this.subject(),
         jsonObj,
         code, keySpan;
@@ -254,7 +254,7 @@ test('verify standard highlight color of key', function(){
     equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00000000');
 });
 
-test('verify changed highlight color of key', function(){
+test('verify changed highlight color of key node', function(){
     var component = this.subject(),
         jsonObj,
         code, keySpan;
@@ -282,7 +282,7 @@ test('verify changed highlight color of key', function(){
     equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00FFFF');
 });
 
-test('verify standard color of value', function(){
+test('verify standard color of value node', function(){
     var component = this.subject(),
         jsonObj,
         code, valueSpan;
@@ -305,7 +305,7 @@ test('verify standard color of value', function(){
     equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#000080');
 });
 
-test('verify changed color of value', function(){
+test('verify changed color of value node', function(){
     var component = this.subject(),
         jsonObj,
         code, valueSpan;
@@ -333,7 +333,7 @@ test('verify changed color of value', function(){
     equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#FF0000');
 });
 
-test('verify standard highlight color of value', function(){
+test('verify standard highlight color of value node', function(){
     var component = this.subject(),
         jsonObj,
         code, valueSpan;
@@ -356,7 +356,7 @@ test('verify standard highlight color of value', function(){
     equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#00000000');
 });
 
-test('verify changed highlight color of value', function(){
+test('verify changed highlight color of value node', function(){
     var component = this.subject(),
         jsonObj,
         code, valueSpan;
