@@ -14,8 +14,8 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
 
     if (pKey){
         r = r + key + pKey.replace(/[": ]/g, '') + '</span>' + twoPoints;
-        if(pEnd !== undefined && (pEnd.trim() === '[' || pEnd.trim() === ']')){
-            r = r + bracketInternal + pEnd + '</span>';
+        if(match.split(':')[1].indexOf('[') > -1){
+            r = r + blank + match.split(':')[1].replace('[', '') + '</span>' + bracketInternal + match.split(':')[1].trim() + '</span>';
             pEnd = '';
         }
     }
@@ -28,6 +28,10 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     }
     if(match.trim() === '{' || (match.trim() === '}' && pEnd !== '')){
         r = r + blank + match.replace('}', '').replace('{', '') + '</span>' + brace + match.trim() + '</span>';
+        pEnd = '';
+    }
+    if(match.trim() === '],' && pEnd === ']'){
+        r = r + blank + match.replace('],', '') + '</span>' + bracket + pEnd.trim() + '</span>' + comma;
         pEnd = '';
     }
     if(match.trim() === '[' || match.trim() === ']'){
@@ -81,7 +85,7 @@ var _prettyPrint = function(    obj,
                                 stringColor, stringHighlight,
                                 braceColor, braceHighlight,
                                 bracketColor, bracketHighlight) {
-    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?([,[}])?([,[},])?$/mg,
+    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?(])?([,[{])?([,[}])?([,[},])?$/mg,
         jsonHTML = JSON.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;')
