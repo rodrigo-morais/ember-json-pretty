@@ -281,3 +281,105 @@ test('verify changed highlight color of key', function(){
 
     equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00FFFF');
 });
+
+test('verify standard color of value', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, valueSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 1,
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    valueSpan = Ember.$(code).find('.json-value');
+
+    equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#000080');
+});
+
+test('verify changed color of value', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, valueSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 1,
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'valueColor',
+                    '#FF0000'
+                );
+    });
+
+    code = Ember.$(this.$()[0]);
+    valueSpan = Ember.$(code).find('.json-value');
+
+    equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#FF0000');
+});
+
+test('verify standard highlight color of value', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, valueSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 1,
+            'key2': 2
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()[0]);
+    valueSpan = Ember.$(code).find('.json-value');
+
+    equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#00000000');
+});
+
+test('verify changed highlight color of value', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, valueSpan;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 1,
+            'key2': 2
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+        component
+            .set(
+                    'valueHighlight',
+                    '#E0FFFF'
+                );
+    });
+
+    code = Ember.$(this.$()[0]);    
+    valueSpan = Ember.$(code).find('.json-value');
+
+    equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#E0FFFF');
+});
