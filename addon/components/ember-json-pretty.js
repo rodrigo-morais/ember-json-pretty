@@ -1,20 +1,27 @@
 ﻿import Ember from 'ember';
 
-var _replacer = function(match, pIndent, pKey, pVal, pEnd, keyColor) {
+var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     var key = '<span class=json-key>';
     var val = '<span class=json-value>';
     var str = '<span class=json-string>';
     var brace = '<span class=json-brace>';
     var bracket = '<span class=json-bracket>';
+    var blank = '<span class=json-blank>';
+    var comma = '<span class=json-comma>,</span>';
     var r = pIndent || '';
+
     if (pKey){
         r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
     }
     if (pVal){
         r = r + (pVal[0] === '"' ? str : val) + pVal + '</span>';
     }
-    if(match.trim() === '{' || match.trim() === '}'){
-        r = r + brace + match + '</span>';
+    if(match.trim() === '},' && pEnd === undefined){
+        r = r + blank + match.replace('},', '') + '</span>' + brace + match.replace(',','').trim() + '</span>' + comma;
+        pEnd = '';
+    }
+    if(match.trim() === '{' || (match.trim() === '}' && pEnd !== '')){
+        r = r + blank + match.replace('}', '').replace('{', '') + '</span>' + brace + match.trim() + '</span>';
         pEnd = '';
     }
     if(match.trim() === '[' || match.trim() === ']'){
@@ -57,7 +64,7 @@ var _prettyPrint = function(    obj,
                                 valueColor, valueHighlight,
                                 stringColor, stringHighlight,
                                 braceColor, braceHighlight) {
-    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?([,[}])?$/mg,
+    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?([,[}])?([,[},])?$/mg,
         jsonHTML = JSON.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;')

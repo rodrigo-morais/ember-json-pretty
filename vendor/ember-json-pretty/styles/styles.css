@@ -41,3 +41,9 @@ pre code
 {
     color: #C0FF3E;
 }
+
+.json-blank,
+.json-comma
+{
+    float: left;
+}
