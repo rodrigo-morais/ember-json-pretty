@@ -9,18 +9,22 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     var bracketInternal = '<span class=json-bracket-internal>';
     var blank = '<span class=json-blank>';
     var comma = '<span class=json-comma>,</span>';
+    var commaInternal = '<span class=json-comma-internal>,</span>';
     var twoPoints = '<span class=json-two-points>: </span>';
     var r = pIndent || '';
 
     if (pKey){
         r = r + key + pKey.replace(/[": ]/g, '') + '</span>' + twoPoints;
         if(match.split(':')[1].indexOf('[') > -1){
-            r = r + blank + match.split(':')[1].replace('[', '') + '</span>' + bracketInternal + match.split(':')[1].trim() + '</span>';
+            r = r + blank + match.split(':')[1].replace('[', '') + '</span>' + bracketInternal + match.split(':')[1].trim() + '</span>';            
             pEnd = '';
         }
     }
     if (pVal){
         r = r + (pVal[0] === '"' ? str : val) + pVal + '</span>';
+        if(match.indexOf(',') > -1){
+            r = r + commaInternal;
+        }
     }
     if(match.trim() === '},' && pEnd === undefined){
         r = r + blank + match.replace('},', '') + '</span>' + brace + match.replace(',','').trim() + '</span>' + comma;
