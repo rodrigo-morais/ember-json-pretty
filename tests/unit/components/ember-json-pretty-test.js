@@ -712,3 +712,61 @@ test('verify changed highlight color of bracket node', function(){
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#FFBBFF');
 });
+
+test('verify if exist a icone before the first bracket', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()).find('code');
+    plusSignal = code.children()[0];
+
+    ok(Ember.$(plusSignal).is('i'));
+});
+
+test('verify if exist a icone with class to plus signal before the first bracket', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()).find('code');
+    plusSignal = code.children()[0];
+
+    ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
+});

@@ -47,3 +47,8 @@ pre code
 {
     float: left;
 }
+
+.fa-plus-square-o
+{
+    float: left !important;
+}

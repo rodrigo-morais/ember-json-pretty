@@ -11,6 +11,7 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     var comma = '<span class=json-comma>,</span>';
     var commaInternal = '<span class=json-comma-internal>,</span>';
     var twoPoints = '<span class=json-two-points>: </span>';
+    var plusIcon = '<i class="fa fa-plus-square-o"></i>';
     var r = pIndent || '';
 
     if (pKey){
@@ -39,6 +40,9 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
         pEnd = '';
     }
     if(match.trim() === '[' || match.trim() === ']'){
+        if(r === ''){
+            r = plusIcon;
+        }
         r = r + bracket + match + '</span>';
         pEnd = '';
     }
