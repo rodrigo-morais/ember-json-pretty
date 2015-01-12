@@ -8,8 +8,7 @@ var _rgb2hex = function (rgb) {
 
     isRGBA = rgb.indexOf('rgba') > -1;
 
-    rgb = isRGBA
-                ? rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/)
+    rgb = isRGBA ? rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/)
                 : rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
 
     function hex(x) {
