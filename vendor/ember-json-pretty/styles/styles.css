@@ -48,7 +48,13 @@ pre code
     float: left;
 }
 
-.fa-plus-square-o
+.plus-icon
 {
     float: left !important;
+    margin-right: 0.5%;
+}
+
+.plus-icon-internal
+{
+    margin-right: 0.5%;
 }

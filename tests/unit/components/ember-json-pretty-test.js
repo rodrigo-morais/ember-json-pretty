@@ -770,3 +770,81 @@ test('verify if exist a icone with class to plus signal before the first bracket
 
     ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
 });
+
+test('verify if exist a icone before each bracket', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': ['1','2','3'],
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()).find('code');
+
+    Ember.$.each(code.children(), function(index, element){
+        if( (   Ember.$(element).hasClass('json-bracket') &&
+                Ember.$(element).text() === '['
+            ) ||
+            Ember.$(element).hasClass('json-bracket-internal')
+        )
+        {
+            plusSignal = code.children()[index - 1];
+
+            ok(Ember.$(plusSignal).is('i'));
+        }
+    });
+});
+
+test('verify if exist a icone with class to plus signal before each bracket', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': ['1','2','3'],
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = Ember.$(this.$()).find('code');
+
+    Ember.$.each(code.children(), function(index, element){
+        if( (   Ember.$(element).hasClass('json-bracket') &&
+                Ember.$(element).text() === '['
+            ) ||
+            Ember.$(element).hasClass('json-bracket-internal')
+        )
+        {
+            plusSignal = code.children()[index - 1];
+
+            ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
+        }
+    });
+});

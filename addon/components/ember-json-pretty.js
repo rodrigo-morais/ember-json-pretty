@@ -11,13 +11,14 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     var comma = '<span class=json-comma>,</span>';
     var commaInternal = '<span class=json-comma-internal>,</span>';
     var twoPoints = '<span class=json-two-points>: </span>';
-    var plusIcon = '<i class="fa fa-plus-square-o"></i>';
+    var plusIcon = '<i class="fa fa-plus-square-o plus-icon"></i>';
+    var plusIconInternal = '<i class="fa fa-plus-square-o plus-icon-internal"></i>';
     var r = pIndent || '';
 
     if (pKey){
         r = r + key + pKey.replace(/[": ]/g, '') + '</span>' + twoPoints;
         if(match.split(':')[1].indexOf('[') > -1){
-            r = r + blank + match.split(':')[1].replace('[', '') + '</span>' + bracketInternal + match.split(':')[1].trim() + '</span>';            
+            r = r + blank + match.split(':')[1].replace('[', '') + '</span>' + plusIconInternal + bracketInternal + match.split(':')[1].trim() + '</span>';            
             pEnd = '';
         }
     }
@@ -40,7 +41,7 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
         pEnd = '';
     }
     if(match.trim() === '[' || match.trim() === ']'){
-        if(r === ''){
+        if(match.trim() === '['){
             r = plusIcon;
         }
         r = r + bracket + match + '</span>';
