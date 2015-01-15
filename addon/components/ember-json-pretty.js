@@ -33,7 +33,12 @@ var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
         pEnd = '';
     }
     if(match.trim() === '{' || (match.trim() === '}' && pEnd !== '')){
-        r = r + blank + match.replace('}', '').replace('{', '') + '</span>' + brace + match.trim() + '</span>';
+        if(match.trim() === '{'){
+            r = r + blank + match.replace('{', '') + '</span>' + plusIcon + brace + match.trim() + '</span>';
+        }
+        else{
+            r = r + blank + match.replace('}', '') + '</span>' + brace + match.trim() + '</span>';
+        }
         pEnd = '';
     }
     if(match.trim() === '],' && pEnd === ']'){
