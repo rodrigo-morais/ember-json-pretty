@@ -1,4 +1,4 @@
-pre
+div
 {
     position: relative;
     float: left;
@@ -7,9 +7,11 @@ pre
     border: 1px solid #A52A2Asilver;
     padding: 0px;
     margin: 0px 0 2%;
+    display: inline-block;;
+    clear: none;
 }
 
-pre code
+div code
 {
     position: relative;
     float: left;
@@ -25,6 +27,7 @@ pre code
 {
     position: relative;
     float: left;
+    clear: right;
 }
 
 .json-key

@@ -1,5 +1,85 @@
 ﻿import Ember from 'ember';
 
+var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
+    var jsonArray = [];
+
+    JSON.stringify(obj, null, 3).split('\n').forEach(function(line){
+        var jsonObj = {
+            "hasPlus": false
+        };
+
+        if(line.split(':').length <= 1){
+            if(line.trim() === '{' || line.trim() === '['){
+                jsonObj.hasPlus = true;
+            }
+
+            jsonObj.element = line.trim();
+
+            if(line.trim() === '{'){
+                jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
+                jsonObj.class = 'json-brace';
+            }
+
+            if(line.trim() === '['){
+                jsonObj.style = 'color:' + bracketColor + '; background-color:' + bracketHighlight;
+                jsonObj.class = 'json-bracket';
+            }
+        }
+        else{
+            var keyObj, valueObj;
+
+            keyObj = line.split(':')[0].trim();
+            valueObj = line.split(':')[1].trim();
+
+            jsonObj.style = 'color:' + keyColor + '; background-color:' + keyHighlight;
+            jsonObj.class = 'json-key';
+            jsonObj.element = keyObj.trim();
+
+            jsonArray.push(jsonObj);
+
+            jsonObj = {
+                'class': 'json-two-points',
+                'hasPlus': false,
+                'element': ': ',
+                'style': 'color:#000000; background-color:#FFFFFF00'
+            };
+            jsonArray.push(jsonObj);
+
+            jsonObj = {
+                "hasPlus": false
+            };
+
+            if(valueObj.trim() === '{' || valueObj.trim() === '['){
+                jsonObj.hasPlus = true;
+
+                if(line.trim() === '{'){
+                    jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
+                    jsonObj.class = 'json-brace';
+                }
+
+                if(line.trim() === '['){
+                    jsonObj.style = 'color:' + bracketColor + '; background-color:' + bracketHighlight;
+                    jsonObj.class = 'json-bracket';
+                }
+            }
+            else if(valueObj.indexOf('"') <= -1){
+                jsonObj.style = 'color:' + valueColor + '; background-color:' + valueHighlight;
+                jsonObj.class = 'json-value';
+            }
+            else{
+                jsonObj.style = 'color:' + stringColor + '; background-color:' + stringHighlight;
+                jsonObj.class = 'json-string';
+            }
+
+            jsonObj.element = valueObj;
+        }
+
+        jsonArray.push(jsonObj);
+    });
+
+    return jsonArray;
+};
+
 var _replacer = function(match, pIndent, pKey, pVal, pEnd) {
     var key = '<span class=json-key>';
     var val = '<span class=json-value>';
@@ -99,7 +179,7 @@ var _prettyPrint = function(    obj,
                                 stringColor, stringHighlight,
                                 braceColor, braceHighlight,
                                 bracketColor, bracketHighlight) {
-    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?(])?([,[{])?([,[}])?([,[},])?$/mg,
+    /*var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?(])?([,[{])?([,[}])?([,[},])?$/mg,
         jsonHTML = JSON.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -111,11 +191,19 @@ var _prettyPrint = function(    obj,
         jsonHTML = _replaceBraceStyle(jsonHTML, braceColor, braceHighlight);
         jsonHTML = _replaceBracketStyle(jsonHTML, bracketColor, bracketHighlight);
 
-    return jsonHTML;
+        return jsonHTML;
+*/
+    var jsonTree = _createJSONTree( obj,
+                                    keyColor, keyHighlight,
+                                    valueColor, valueHighlight,
+                                    stringColor, stringHighlight,
+                                    braceColor, braceHighlight,
+                                    bracketColor, bracketHighlight);
+
+    return jsonTree;
 };
 
 export default Ember.Component.extend({
-    tagName: 'pre',
     keyColor: '#A52A2A',
     keyHighlight: '#FFFFFF00',
     valueColor: '#000080',
@@ -145,6 +233,7 @@ export default Ember.Component.extend({
                                         braceColor, braceHighlight,
                                         bracketColor, bracketHighlight);
         
-        return Ember.String.htmlSafe(json_pretty);
+        //return Ember.String.htmlSafe(json_pretty);
+        return json_pretty;
     }.property('jsonObj'),
 });
