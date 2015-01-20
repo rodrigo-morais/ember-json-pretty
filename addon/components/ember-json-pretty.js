@@ -3,7 +3,7 @@
 var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
     var jsonArray = [];
 
-    JSON.stringify(obj, null, 3).split('\n').forEach(function(line){
+    JSON.stringify(obj, null, 3).split('\n').forEach(function(line, index){
         var jsonObj = {
             "hasPlus": false
         };
@@ -11,6 +11,7 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
         if(line.split(':').length <= 1){
             if(line.trim() === '{' || line.trim() === '['){
                 jsonObj.hasPlus = true;
+                jsonObj.plusId = 'plus_' + index;
             }
 
             jsonObj.element = line.trim();
@@ -51,6 +52,7 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
 
             if(valueObj.trim() === '{' || valueObj.trim() === '['){
                 jsonObj.hasPlus = true;
+                jsonObj.plusId = 'plus_' + index;
 
                 if(line.trim() === '{'){
                     jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
@@ -236,4 +238,16 @@ export default Ember.Component.extend({
         //return Ember.String.htmlSafe(json_pretty);
         return json_pretty;
     }.property('jsonObj'),
+    actions: {
+        toggleExpand: function(plusId){
+            if(Ember.$('#' + plusId).hasClass('fa-plus-square-o')){
+                Ember.$('#' + plusId).removeClass('fa-plus-square-o');
+                Ember.$('#' + plusId).addClass('fa-minus-square-o');
+            }
+            else{
+                Ember.$('#' + plusId).removeClass('fa-minus-square-o');
+                Ember.$('#' + plusId).addClass('fa-plus-square-o');
+            }
+        }
+    }
 });
