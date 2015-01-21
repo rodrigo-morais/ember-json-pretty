@@ -206,6 +206,7 @@ var _prettyPrint = function(    obj,
 };
 
 export default Ember.Component.extend({
+    tagName: 'code',
     keyColor: '#A52A2A',
     keyHighlight: '#FFFFFF00',
     valueColor: '#000080',

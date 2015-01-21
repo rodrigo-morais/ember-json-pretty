@@ -1,13 +1,7 @@
-<code>
-    {{!--{{ pretty }}--}}
-    
-    {{#each json in pretty}}
-        {{#if json.hasPlus}}
-            <i {{bind-attr id=json.plusId }} class="fa fa-plus-square-o plus-icon" {{action 'toggleExpand' json.plusId}}></i>
-        {{/if}}
-        <span {{bind-attr class="json.class" style="json.style"}}>
-            {{ json.element }}
-        </span>
-    {{/each}}
-    
-</code>
+{{!--{{ pretty }}--}}
+{{#each json in pretty}}
+    {{#if json.hasPlus}}
+        <i {{bind-attr id=json.plusId }} class="fa fa-plus-square-o plus-icon" {{action 'toggleExpand' json.plusId}}></i>
+    {{/if}}
+    <span {{bind-attr class="json.class" style="json.style"}}>{{json.element}}</span>
+{{/each}}
