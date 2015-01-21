@@ -1,3 +1,4 @@
+/*
 div
 {
     position: relative;
@@ -32,27 +33,35 @@ div code
 
 .json-key
 {
+    position: relative;
+    float: left;
     color: #A52A2A;
 }
 
 .json-value
 {
+    position: relative;
+    float: left;
     color: #000080;
 }
 
 .json-string
 {
+    position: relative;
+    float: left;
     color: #C0FF3E;
 }
 
 .json-blank,
 .json-comma
 {
+    position: relative;
     float: left;
 }
 
 .plus-icon
 {
+    position: relative;
     float: left !important;
     margin-right: 0.5%;
     cursor: pointer;
@@ -63,3 +72,4 @@ div code
     margin-right: 0.5%;
     cursor: pointer;
 }
+*/

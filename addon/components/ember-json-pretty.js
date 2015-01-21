@@ -10,6 +10,8 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
 
         if(line.split(':').length <= 1){
             if(line.trim() === '{' || line.trim() === '['){
+                jsonObj.newLine = true;
+                jsonObj.endLine = false;
                 jsonObj.hasPlus = true;
                 jsonObj.plusId = 'plus_' + index;
             }
@@ -32,6 +34,8 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             keyObj = line.split(':')[0].trim();
             valueObj = line.split(':')[1].trim();
 
+            jsonObj.newLine = true;
+            jsonObj.endLine = false;
             jsonObj.style = 'color:' + keyColor + '; background-color:' + keyHighlight;
             jsonObj.class = 'json-key';
             jsonObj.element = keyObj.trim();
@@ -51,6 +55,8 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             };
 
             if(valueObj.trim() === '{' || valueObj.trim() === '['){
+                jsonObj.newLine = false;
+                jsonObj.endLine = false;
                 jsonObj.hasPlus = true;
                 jsonObj.plusId = 'plus_' + index;
 
@@ -65,10 +71,14 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
                 }
             }
             else if(valueObj.indexOf('"') <= -1){
+                jsonObj.newLine = false;
+                jsonObj.endLine = true;
                 jsonObj.style = 'color:' + valueColor + '; background-color:' + valueHighlight;
                 jsonObj.class = 'json-value';
             }
             else{
+                jsonObj.newLine = false;
+                jsonObj.endLine = true;
                 jsonObj.style = 'color:' + stringColor + '; background-color:' + stringHighlight;
                 jsonObj.class = 'json-string';
             }
@@ -182,7 +192,7 @@ var _prettyPrint = function(    obj,
                                 braceColor, braceHighlight,
                                 bracketColor, bracketHighlight) {
     /*var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?(])?([,[{])?([,[}])?([,[},])?$/mg,
-        jsonHTML = JSON.stringify(obj, null, 3)
+        jsonHTML = jsonObj.stringify(obj, null, 3)
             .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;')
             .replace(jsonLine, _replacer);
