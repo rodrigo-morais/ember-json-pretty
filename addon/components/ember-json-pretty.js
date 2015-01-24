@@ -1,29 +1,40 @@
 ﻿import Ember from 'ember';
 
 var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
-    var jsonArray = [];
+    var jsonArray = [],
+        jsonLine = {
+            elements: []
+        };
 
     JSON.stringify(obj, null, 3).split('\n').forEach(function(line, index){
         var jsonObj = {
-            "hasPlus": false
+            "hasPlus": false,
+            "newLine": false,
+            "endLine": false
         };
 
         if(line.split(':').length <= 1){
             if(line.trim() === '{' || line.trim() === '['){
                 jsonObj.newLine = true;
-                jsonObj.endLine = false;
+                jsonObj.endLine = true;
                 jsonObj.hasPlus = true;
                 jsonObj.plusId = 'plus_' + index;
+            }
+            else if(line.trim() === '}' || line.trim() === ']'){
+                jsonObj.newLine = true;
+                jsonObj.endLine = true;
+                jsonObj.hasPlus = false;
+                jsonObj.plusId = null;
             }
 
             jsonObj.element = line.trim();
 
-            if(line.trim() === '{'){
+            if(line.trim() === '{' || line.trim() === '}'){
                 jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
                 jsonObj.class = 'json-brace';
             }
 
-            if(line.trim() === '['){
+            if(line.trim() === '[' || line.trim() === ']'){
                 jsonObj.style = 'color:' + bracketColor + '; background-color:' + bracketHighlight;
                 jsonObj.class = 'json-bracket';
             }
@@ -40,7 +51,7 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             jsonObj.class = 'json-key';
             jsonObj.element = keyObj.trim();
 
-            jsonArray.push(jsonObj);
+            jsonLine.elements.push(jsonObj);
 
             jsonObj = {
                 'class': 'json-two-points',
@@ -48,10 +59,13 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
                 'element': ': ',
                 'style': 'color:#000000; background-color:#FFFFFF00'
             };
-            jsonArray.push(jsonObj);
+
+            jsonLine.elements.push(jsonObj);
 
             jsonObj = {
-                "hasPlus": false
+                "hasPlus": false,
+                "newLine": false,
+                "endLine": false
             };
 
             if(valueObj.trim() === '{' || valueObj.trim() === '['){
@@ -86,7 +100,15 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             jsonObj.element = valueObj;
         }
 
-        jsonArray.push(jsonObj);
+        jsonLine.elements.push(jsonObj);
+
+        if(jsonObj.endLine){
+            jsonArray.push(jsonLine);
+            jsonLine = {
+                elements: []
+            };
+        }
+        
     });
 
     return jsonArray;
