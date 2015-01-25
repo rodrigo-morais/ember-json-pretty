@@ -11,7 +11,14 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             "hasPlus": false,
             "newLine": false,
             "endLine": false
-        };
+        },
+        comma = '',
+        prevEndLine = false;
+
+        if(line.substr(line.length - 1, 1) === ','){
+            comma = line.substr(line.length - 1, 1);
+            line = line.substr(0, line.length - 1);
+        }
 
         if(line.split(':').length <= 1){
             if(line.trim() === '{' || line.trim() === '['){
@@ -101,6 +108,19 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
         }
 
         jsonLine.elements.push(jsonObj);
+
+        if(comma === ','){
+            prevEndLine = jsonObj.endLine;
+            jsonObj = {
+                'class': 'json-comma',
+                'hasPlus': false,
+                'element': ',',
+                'style': '',
+                'newLine': false,
+                'endLine': prevEndLine
+            };
+            jsonLine.elements.push(jsonObj);            
+        }
 
         if(jsonObj.endLine){
             jsonArray.push(jsonLine);

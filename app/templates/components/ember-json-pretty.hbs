@@ -1,7 +1,7 @@
 {{!--{{ pretty }}--}}
 
 {{#each line in pretty}}
-    <div>
+    <div class="jsonTreeView">
         {{#each element in line.elements}}
             {{#if element.hasPlus}}
                 <i {{bind-attr id=element.plusId }} class="fa fa-plus-square-o plus-icon" {{action 'toggleExpand' element.plusId}}></i>

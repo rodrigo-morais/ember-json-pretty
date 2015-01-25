@@ -68,6 +68,20 @@ div code
 }
 */
 
+div.jsonTreeView
+{
+    position: relative;
+    float: left;
+    min-width: 100vw;
+}
+
+div.jsonTreeView span,
+div.jsonTreeView i
+{
+    position: relative;
+    float: left;
+}
+
 .plus-icon
 {
     margin-right: 0.5%;
