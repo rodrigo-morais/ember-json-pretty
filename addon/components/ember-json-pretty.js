@@ -8,9 +8,9 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
 
     JSON.stringify(obj, null, 3).split('\n').forEach(function(line, index){
         var jsonObj = {
-            "hasPlus": false,
-            "newLine": false,
-            "endLine": false
+            'hasPlus': false,
+            'newLine': false,
+            'endLine': false
         },
         comma = '',
         prevEndLine = false;
@@ -76,8 +76,8 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             };
 
             if(valueObj.trim() === '{' || valueObj.trim() === '['){
-                jsonObj.newLine = false;
-                jsonObj.endLine = false;
+                jsonObj.newLine = true;
+                jsonObj.endLine = true;
                 jsonObj.hasPlus = true;
                 jsonObj.plusId = 'plus_' + index;
 
@@ -117,7 +117,7 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
                 'element': ',',
                 'style': '',
                 'newLine': false,
-                'endLine': prevEndLine
+                'endLine': true
             };
             jsonLine.elements.push(jsonObj);            
         }
