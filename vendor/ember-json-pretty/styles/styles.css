@@ -75,6 +75,21 @@ div.jsonTreeView
     min-width: 100vw;
 }
 
+div code
+{
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: #F8F8FF;
+    border: 1px solid #000000;
+    padding: 0px;
+    margin: 0px 0 2%;
+    padding: 1%;
+    display: inline-block;;
+    clear: none;
+    min-height: 30vh;
+}
+
 div.jsonTreeView span,
 div.jsonTreeView i
 {
