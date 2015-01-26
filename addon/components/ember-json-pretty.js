@@ -1,6 +1,78 @@
 ﻿import Ember from 'ember';
 
+var _createObject = function(obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
+    var jsonLines = [],
+        jsonLine = {
+            elements: []
+        },
+        jsonObj = {};
+
+    jsonObj.newLine = true;
+    jsonObj.endLine = true;
+    jsonObj.hasPlus = true;
+    jsonObj.plusId = 'plus_0';
+    jsonObj.element = '{';
+    jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
+    jsonObj.class = 'json-brace';
+
+    jsonLine.elements.push(jsonObj);
+    jsonLines.push(jsonLine);
+
+    jsonLine = {
+        elements: []
+    };
+    jsonObj = {};
+    jsonObj.newLine = true;
+    jsonObj.endLine = true;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.element = '}';
+    jsonObj.style = 'color:' + braceColor + '; background-color:' + braceHighlight;
+    jsonObj.class = 'json-brace';
+
+    jsonLine.elements.push(jsonObj);
+    jsonLines.push(jsonLine);
+
+    return jsonLines;
+};
+
 var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
+    var jsonLines = [],
+        jsonLine = {
+            elements: []
+        },
+        jsonObj = {
+            'hasPlus': false,
+            'newLine': false,
+            'endLine': false
+        };
+
+    if(Array.isArray(obj)){
+        jsonObj.newLine = true;
+        jsonObj.endLine = true;
+        jsonObj.hasPlus = true;
+        jsonObj.plusId = 'plus_0';
+        jsonObj.element = '[';
+        jsonObj.style = 'color:' + bracketColor + '; background-color:' + bracketHighlight;
+        jsonObj.class = 'json-bracket';
+
+        jsonLine.elements.push(jsonObj);
+        jsonLines.push(jsonLine);
+
+        obj.forEach(function(newObj){
+            var newLines;
+
+            newLines = _createObject(newObj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+
+            jsonLines = jsonLines.concat(newLines);
+        });
+    }
+
+    return jsonLines;
+
+};
+
+var _createJSONTree_old = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
     var jsonArray = [],
         jsonLine = {
             elements: []
