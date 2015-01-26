@@ -92,3 +92,11 @@ div.jsonTreeView i
 {
     margin: 0 0.5% 0 0.5%;
 }
+
+.json-blank
+{
+    position: relative;
+    float: left;
+    margin-left: 0.5%;
+    color: #FFFFFF;
+}
