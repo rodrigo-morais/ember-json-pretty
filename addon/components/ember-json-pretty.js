@@ -44,8 +44,8 @@ var _addKey = function(key, plusId, numberSpaces, keyColor, keyHighlight){
 
     jsonObj.newLine = true;
     jsonObj.endLine = true;
-    jsonObj.hasPlus = true;
-    jsonObj.plusId = 'plus_' + plusId;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
     jsonObj.isBlank = false;
     jsonObj.element = key;
     jsonObj.style = 'color:' + keyColor + '; background-color:' + keyHighlight;
