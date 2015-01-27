@@ -43,13 +43,53 @@ var _addKey = function(key, plusId, numberSpaces, keyColor, keyHighlight){
     var jsonObj = {};
 
     jsonObj.newLine = true;
-    jsonObj.endLine = true;
+    jsonObj.endLine = false;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
     jsonObj.element = key;
     jsonObj.style = 'color:' + keyColor + '; background-color:' + keyHighlight;
     jsonObj.class = 'json-key';
+
+    return jsonObj;
+};
+
+var _addTwoPoints = function(){
+    var jsonObj = {};
+
+    jsonObj.newLine = false;
+    jsonObj.endLine = false;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.isBlank = false;
+    jsonObj.element = ':';
+    jsonObj.style = '';
+    jsonObj.class = 'json-two-points';
+
+    return jsonObj;
+};
+
+var _addValue = function(value, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
+    var jsonObj = {};
+
+    if(typeof value === 'string'){
+        jsonObj = _addStringValue(value, stringColor, stringHighlight);
+    }
+
+    return jsonObj;
+};
+
+var _addStringValue = function(value, stringColor, stringHighlight){
+    var jsonObj = {};
+
+    jsonObj.newLine = true;
+    jsonObj.endLine = true;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.isBlank = false;
+    jsonObj.element = value;
+    jsonObj.style = 'color:' + stringColor + '; background-color:' + stringHighlight;
+    jsonObj.class = 'json-string';
 
     return jsonObj;
 };
@@ -80,6 +120,12 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
         jsonLine
             .elements
                 .push(_addKey(key, plusId, numberSpaces, keyColor, keyHighlight));
+        jsonLine
+            .elements
+                .push(_addTwoPoints());
+        jsonLine
+            .elements
+                .push(_addValue(obj[key], plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight));
 
         jsonLines.push(jsonLine);
     });
