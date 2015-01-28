@@ -69,7 +69,7 @@ var _addTwoPoints = function(){
     return jsonObj;
 };
 
-var _addValue = function(value, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
+var _addValue = function(value, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
     var jsonObj = {};
 
     if(value){
@@ -77,7 +77,15 @@ var _addValue = function(value, plusId, numberSpacesInitial, keyColor, keyHighli
             jsonObj = _addStringValue(value, stringColor, stringHighlight);
         }
         else if(Array.isArray(value)){
-            console.log('achei um array');
+            if(typeof value[0] === 'object'){
+                jsonObj = _createJSONTree(value, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+            }
+            else{
+                jsonObj = _addArrayStandardValues(value);
+            }            
+        }
+        else if(value && typeof value === 'object'){
+            jsonObj = _addObjectValue(value, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
         }
         else{
             jsonObj = _addStandardValue(value, valueColor, valueHighlight);
@@ -105,6 +113,9 @@ var _addStringValue = function(value, stringColor, stringHighlight){
     return jsonObj;
 };
 
+var _addObjectValue = function(value, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
+    return _createObject(value, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+};
 
 var _addStandardValue = function(value, valueColor, valueHighlight){
     var jsonObj = {};
@@ -117,6 +128,28 @@ var _addStandardValue = function(value, valueColor, valueHighlight){
     jsonObj.element = value;
     jsonObj.style = 'color:' + valueColor + '; background-color:' + valueHighlight;
     jsonObj.class = 'json-value';
+
+    return jsonObj;
+};
+
+var _addArrayStandardValues = function(value){
+    var jsonObj = {},
+        arrayValue = '[';
+
+    value.forEach(function(arrayItem){
+        arrayValue = arrayValue + arrayItem + ', ';
+    });
+
+    arrayValue = arrayValue.substr(0, arrayValue.length - 2) + ']';
+
+    jsonObj.newLine = true;
+    jsonObj.endLine = true;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.isBlank = false;
+    jsonObj.element = arrayValue;
+    jsonObj.style = '';
+    jsonObj.class = '';
 
     return jsonObj;
 };
@@ -152,9 +185,30 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
                 .push(_addTwoPoints());
         jsonLine
             .elements
-                .push(_addValue(obj[key], plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight));
+                .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight));
 
-        jsonLines.push(jsonLine);
+        if(Array.isArray(jsonLine.elements[jsonLine.elements.length - 1])){
+
+            var internalArray = jsonLine.elements[jsonLine.elements.length - 1];
+            jsonLine.elements.pop();
+
+            jsonLine.elements.push(internalArray[0].elements[0]);
+            jsonLines.push(jsonLine);
+
+            internalArray.shift();
+            internalArray.forEach(function(element){
+                jsonLine = {
+                    elements: []
+                };
+                element.elements.forEach(function(object){
+                    jsonLine.elements.push(object);
+                });
+                jsonLines.push(jsonLine);
+            });
+        }
+        else{
+            jsonLines.push(jsonLine);
+        }
     });
     
     jsonLines.push(_addBrace('}', plusId, numberSpacesInitial, false, braceColor, braceHighlight));
