@@ -72,8 +72,19 @@ var _addTwoPoints = function(){
 var _addValue = function(value, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
     var jsonObj = {};
 
-    if(typeof value === 'string'){
-        jsonObj = _addStringValue(value, stringColor, stringHighlight);
+    if(value){
+        if(typeof value === 'string'){
+            jsonObj = _addStringValue(value, stringColor, stringHighlight);
+        }
+        else if(Array.isArray(value)){
+            console.log('achei um array');
+        }
+        else{
+            jsonObj = _addStandardValue(value, valueColor, valueHighlight);
+        }
+    }
+    else{
+        jsonObj = _addStringValue('null', stringColor, stringHighlight);
     }
 
     return jsonObj;
@@ -90,6 +101,22 @@ var _addStringValue = function(value, stringColor, stringHighlight){
     jsonObj.element = value;
     jsonObj.style = 'color:' + stringColor + '; background-color:' + stringHighlight;
     jsonObj.class = 'json-string';
+
+    return jsonObj;
+};
+
+
+var _addStandardValue = function(value, valueColor, valueHighlight){
+    var jsonObj = {};
+
+    jsonObj.newLine = false;
+    jsonObj.endLine = false;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.isBlank = false;
+    jsonObj.element = value;
+    jsonObj.style = 'color:' + valueColor + '; background-color:' + valueHighlight;
+    jsonObj.class = 'json-value';
 
     return jsonObj;
 };
