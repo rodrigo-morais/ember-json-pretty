@@ -78,7 +78,8 @@ var _addValue = function(value, plusId, numberSpaces, keyColor, keyHighlight, va
         }
         else if(Array.isArray(value)){
             if(typeof value[0] === 'object'){
-                jsonObj = _createJSONTree(value, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+                
+                jsonObj = _createJSONTree(value, numberSpaces, plusId, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
             }
             else{
                 jsonObj = _addArrayStandardValues(value);
@@ -216,7 +217,7 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
     return jsonLines;
 };
 
-var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
+var _createJSONTree = function( obj, numberSpaces, plusId, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
     var jsonLines = [],
         jsonLine = {
             elements: []
@@ -226,11 +227,10 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
             'newLine': false,
             'endLine': false
         },
-        numberSpaces = 0,
-        plusId = 0;
+        numberSpacesInitial = numberSpaces;
 
     if(Array.isArray(obj)){
-        numberSpaces = 1;
+        numberSpaces = numberSpaces + 1;
 
         jsonObj.newLine = true;
         jsonObj.endLine = true;
@@ -264,6 +264,11 @@ var _createJSONTree = function( obj, keyColor, keyHighlight, valueColor, valueHi
         jsonLine = {
             'elements': []
         };
+
+        for(var counter = 0; counter < numberSpacesInitial; counter = counter +1){
+            jsonLine.elements.push(_addBlank());
+        }
+
         jsonObj.newLine = true;
         jsonObj.endLine = true;
         jsonObj.hasPlus = false;
@@ -530,7 +535,7 @@ var _prettyPrint = function(    obj,
 
         return jsonHTML;
 */
-    var jsonTree = _createJSONTree( obj,
+    var jsonTree = _createJSONTree( obj, 0, 0,
                                     keyColor, keyHighlight,
                                     valueColor, valueHighlight,
                                     stringColor, stringHighlight,
