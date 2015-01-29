@@ -155,6 +155,21 @@ var _addArrayStandardValues = function(value){
     return jsonObj;
 };
 
+var _addComma = function(){
+    var jsonObj = {};
+
+    jsonObj.newLine = false;
+    jsonObj.endLine = true;
+    jsonObj.hasPlus = false;
+    jsonObj.plusId = null;
+    jsonObj.isBlank = false;
+    jsonObj.element = ',';
+    jsonObj.style = '';
+    jsonObj.class = '';
+
+    return jsonObj;
+};
+
 var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
     var jsonLines = [],
         jsonLine = {
@@ -244,7 +259,7 @@ var _createJSONTree = function( obj, numberSpaces, plusId, keyColor, keyHighligh
         jsonLine.elements.push(jsonObj);
         jsonLines.push(jsonLine);
 
-        obj.forEach(function(newObj){
+        obj.forEach(function(newObj, index){
             var newLines;
 
             plusId = plusId + 1;
@@ -252,6 +267,11 @@ var _createJSONTree = function( obj, numberSpaces, plusId, keyColor, keyHighligh
             newLines = _createObject(newObj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
 
             jsonLines = jsonLines.concat(newLines);
+
+            if(index < (obj.length -1)){
+                jsonLine = jsonLines[jsonLines.length - 1];
+                jsonLine.elements.push(_addComma());
+            }
 
             plusId = plusId + newLines.length;
         });
