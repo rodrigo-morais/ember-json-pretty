@@ -4,7 +4,7 @@
     <div class="jsonTreeView">
         {{#each element in line.elements}}
             {{#if element.hasPlus}}
-                <i {{bind-attr id=element.plusId }} class="fa fa-plus-square-o plus-icon" {{action 'toggleExpand' element.plusId}}></i>
+                <i {{bind-attr id=element.plusId }} class="fa fa-minus-square-o plus-icon" {{action 'toggleExpand' element.plusId}}></i>
             {{/if}}
             {{#if element.isBlank}}
                 <span {{bind-attr class="element.class"}}>
