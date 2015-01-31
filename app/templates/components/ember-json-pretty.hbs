@@ -1,21 +1,5 @@
-{{!--{{ pretty }}--}}
-
 {{#each line in pretty}}
     <div class="jsonTreeView">
-        {{#each element in line.elements}}
-            {{#if element.hasPlus}}
-                <i {{bind-attr id=element.plusId }} class="fa fa-minus-square-o plus-icon" {{action 'toggleExpand' element.plusId}}></i>
-            {{/if}}
-            {{#if element.isBlank}}
-                <span {{bind-attr class="element.class"}}>
-                    &nbsp;&nbsp;
-                </span>
-            {{/if}}
-            {{#unless element.isBlank}}
-                <span {{bind-attr class="element.class" style="element.style"}}>
-                    {{element.element}}
-                </span>
-            {{/unless}}
-        {{/each}}
+        {{partial 'components/ember-line'}}
     </div>
 {{/each}}
