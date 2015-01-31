@@ -11,5 +11,10 @@
         <span {{bind-attr class="element.class" style="element.style"}}>
             {{element.element}}
         </span>
+        {{#each line in line.lines}}
+            <div {{bind-attr data-id=element.plusId }} class="new-line">
+                {{partial 'components/ember-line'}}
+            </div>
+        {{/each}}        
     {{/unless}}
 {{/each}}

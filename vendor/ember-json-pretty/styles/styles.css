@@ -115,3 +115,11 @@ div.jsonTreeView i
     margin-left: 0.5%;
     color: #FFFFFF;
 }
+
+.new-line
+{
+    position: relative;
+    float: left;
+    clear: both;
+    width: 100%;
+}

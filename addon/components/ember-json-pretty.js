@@ -2,7 +2,8 @@
 
 var _addBrace = function(element, plusId, numberSpaces, hasPlus, braceColor, braceHighlight){
     var jsonLine = {
-            elements: []
+            elements: [],
+            lines: []
         },
         jsonObj = {};
 
@@ -173,57 +174,61 @@ var _addComma = function(){
 var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight) {
     var jsonLines = [],
         jsonLine = {
-            elements: []
+            elements: [],
+            lines: []
         },
         jsonObj = {},
         numberSpaces = numberSpacesInitial;
 
 
-    jsonLines.push(_addBrace('{', plusId, numberSpacesInitial, true, braceColor, braceHighlight));
+    jsonLine = _addBrace('{', plusId, numberSpacesInitial, true, braceColor, braceHighlight);
 
     numberSpaces = numberSpaces + 1;
     Object.keys(obj).forEach(function(key, index){
-        var hasComma = false;
-        plusId = plusId + 1;
-
-        jsonLine = {
-            elements: []
+        var hasComma = false,
+        internalJsonLine = {
+            elements: [],
+            lines: []
         };
 
+        plusId = plusId + 1;
+
         for(var counter = 0; counter < numberSpaces; counter = counter +1){
-            jsonLine.elements.push(_addBlank());
+            internalJsonLine.elements.push(_addBlank());
         }
 
-        jsonLine
+        internalJsonLine
             .elements
                 .push(_addKey(key, plusId, numberSpaces, keyColor, keyHighlight));
-        jsonLine
+        internalJsonLine
             .elements
                 .push(_addTwoPoints());
 
         hasComma = index < (Object.keys(obj).length -1);
 
-        jsonLine
+        internalJsonLine
             .elements
                 .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma));
 
-        if(Array.isArray(jsonLine.elements[jsonLine.elements.length - 1])){
+        jsonLine.lines.push(internalJsonLine);
 
-            var internalArray = jsonLine.elements[jsonLine.elements.length - 1];
-            jsonLine.elements.pop();
+        if(Array.isArray(internalJsonLine.elements[internalJsonLine.elements.length - 1])){
 
-            jsonLine.elements.push(internalArray[0].elements[0]);
-            jsonLines.push(jsonLine);
+            var internalArray = internalJsonLine.elements[internalJsonLine.elements.length - 1];
+            internalJsonLine.elements.pop();
+
+            internalJsonLine.elements.push(internalArray[0].elements[0]);
+            jsonLine.lines.push(internalJsonLine);
 
             internalArray.shift();
             internalArray.forEach(function(element){
-                jsonLine = {
+                var internalArrayLine = {
                     elements: []
                 };
                 element.elements.forEach(function(object){
-                    jsonLine.elements.push(object);
+                    internalArrayLine.elements.push(object);
                 });
-                jsonLines.push(jsonLine);
+                jsonLine.lines.push(internalArrayLine);
             });
         }
         else{
@@ -239,7 +244,8 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
 var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma) {
     var jsonLines = [],
         jsonLine = {
-            elements: []
+            elements: [],
+            lines: []
         },
         jsonObj = {
             'hasPlus': false,
@@ -261,24 +267,30 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
         jsonObj.class = 'json-bracket';
 
         jsonLine.elements.push(jsonObj);
-        jsonLines.push(jsonLine);
 
         obj.forEach(function(newObj, index){
-            var newLines;
+            var newObject;
 
             plusId = plusId + 1;
 
-            newLines = _createObject(newObj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+            newObject = _createObject(newObj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
 
-            jsonLines = jsonLines.concat(newLines);
+            newObject.forEach(function(objectLine){
+                jsonLine.lines.push(objectLine);
+            });
 
             if(index < (obj.length -1)){
-                jsonLine = jsonLines[jsonLines.length - 1];
-                jsonLine.elements.push(_addComma());
+                jsonLine
+                    .lines[jsonLine.lines.length - 1]
+                        .elements.push(_addComma());
             }
 
-            plusId = plusId + newLines.length;
+            newObject.forEach(function(line){
+                plusId = plusId + line.lines.length + 1;
+            });            
         });
+
+        jsonLines.push(jsonLine);
 
         jsonObj = {
             'hasPlus': false,
@@ -286,7 +298,8 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
             'endLine': false
         };
         jsonLine = {
-            'elements': []
+            elements: [],
+            lines: []
         };
 
         for(var counter = 0; counter < numberSpacesInitial; counter = counter +1){
@@ -311,7 +324,8 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
         jsonLines.push(jsonLine);
     }
     else{
-        _createObject(obj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+        var newObject = _createObject(obj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+        jsonLines.push(newObject);
     }
 
     return jsonLines;
