@@ -224,18 +224,6 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
             internalJsonLine.lines = internalArray[0].lines;
 
             jsonLine.lines.push(internalArray[internalArray.length - 1]);
-/*
-            internalArray.shift();
-            internalArray.forEach(function(element){
-                var internalArrayLine = {
-                    elements: []
-                };
-                element.elements.forEach(function(object){
-                    internalArrayLine.elements.push(object);
-                });
-                jsonLine.lines.push(internalArrayLine);
-            });
-*/
         }
     });
 
