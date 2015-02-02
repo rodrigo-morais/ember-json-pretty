@@ -214,12 +214,14 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
 
         if(Array.isArray(internalJsonLine.elements[internalJsonLine.elements.length - 1])){
 
-            var internalArray = internalJsonLine.elements[internalJsonLine.elements.length - 1];
+            var internalArray = internalJsonLine
+                                    .elements[internalJsonLine
+                                                .elements.length - 1];
             internalJsonLine.elements.pop();
 
             internalJsonLine.elements.push(internalArray[0].elements[0]);
-            jsonLine.lines.push(internalJsonLine);
-
+            jsonLine.lines.push(internalArray[internalArray.length - 1]);
+/*
             internalArray.shift();
             internalArray.forEach(function(element){
                 var internalArrayLine = {
@@ -230,12 +232,11 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
                 });
                 jsonLine.lines.push(internalArrayLine);
             });
-        }
-        else{
-            jsonLines.push(jsonLine);
+*/
         }
     });
-    
+
+    jsonLines.push(jsonLine);
     jsonLines.push(_addBrace('}', plusId, numberSpacesInitial, false, braceColor, braceHighlight));
 
     return jsonLines;
