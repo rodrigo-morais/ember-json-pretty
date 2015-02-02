@@ -220,6 +220,9 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
             internalJsonLine.elements.pop();
 
             internalJsonLine.elements.push(internalArray[0].elements[0]);
+
+            internalJsonLine.lines = internalArray[0].lines;
+
             jsonLine.lines.push(internalArray[internalArray.length - 1]);
 /*
             internalArray.shift();
