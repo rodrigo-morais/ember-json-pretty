@@ -175,23 +175,20 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
     var jsonLines = [],
         jsonLine = {
             elements: [],
-            lines: [],
-            plusId: ''
+            lines: []
         },
         jsonObj = {},
         numberSpaces = numberSpacesInitial;
 
 
     jsonLine = _addBrace('{', plusId, numberSpacesInitial, true, braceColor, braceHighlight);
-    jsonLine.plusId = 'plus_' + plusId;
 
     numberSpaces = numberSpaces + 1;
     Object.keys(obj).forEach(function(key, index){
         var hasComma = false,
         internalJsonLine = {
             elements: [],
-            lines: [],
-            plusId: ''
+            lines: []
         };
 
         plusId = plusId + 1;
@@ -214,7 +211,6 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
                 .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma));
 
         jsonLine.lines.push(internalJsonLine);
-        jsonLine.plusId = 'plus_' + plusId;
 
         if(Array.isArray(internalJsonLine.elements[internalJsonLine.elements.length - 1])){
 
@@ -237,12 +233,29 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
     return jsonLines;
 };
 
+var _adjustLinePlusId = function(jsonLines){
+    jsonLines.forEach(function(_line){
+        var plusId = '';
+        _line.elements.forEach(function(_element){
+            if(_element.plusId){
+                plusId = _element.plusId;
+            }
+        });
+        _line.lines.forEach(function(_internalLine){
+            _internalLine.plusId = plusId;
+        });
+        if(_line.lines.length > 0){
+            _line.lines = _adjustLinePlusId(_line.lines);
+        }
+    });
+    return jsonLines;
+};
+
 var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma) {
     var jsonLines = [],
         jsonLine = {
             elements: [],
-            lines: [],
-            plusId: ''
+            lines: []
         },
         jsonObj = {
             'hasPlus': false,
@@ -264,7 +277,6 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
         jsonObj.class = 'json-bracket';
 
         jsonLine.elements.push(jsonObj);
-        jsonLine.plusId = 'plus_' + plusId;
 
         obj.forEach(function(newObj, index){
             var newObject;
@@ -326,7 +338,7 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
         jsonLines.push(newObject);
     }
 
-    return jsonLines;
+    return _adjustLinePlusId(jsonLines);
 };
 
 var _prettyPrint = function(    obj,
