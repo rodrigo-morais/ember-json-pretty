@@ -396,10 +396,12 @@ export default Ember.Component.extend({
             if(Ember.$('#' + plusId).hasClass('fa-plus-square-o')){
                 Ember.$('#' + plusId).removeClass('fa-plus-square-o');
                 Ember.$('#' + plusId).addClass('fa-minus-square-o');
+                Ember.$('.jsonTreeView').find('[data-id="' + plusId + '"]').show();
             }
             else{
                 Ember.$('#' + plusId).removeClass('fa-minus-square-o');
                 Ember.$('#' + plusId).addClass('fa-plus-square-o');
+                Ember.$('.jsonTreeView').find('[data-id="' + plusId + '"]').hide();
             }
         }
     }
