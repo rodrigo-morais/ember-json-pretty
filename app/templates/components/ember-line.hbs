@@ -15,6 +15,6 @@
 {{/each}}
 {{#each line in line.lines}}
     <div {{bind-attr data-id=line.plusId }} class="new-line">
-        {{render 'components/ember-line'}}
+        {{partial 'components/ember-line'}}
     </div>
 {{/each}}

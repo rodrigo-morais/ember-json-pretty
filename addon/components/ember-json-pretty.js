@@ -210,6 +210,10 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
             .elements
                 .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma));
 
+        if(hasComma && internalJsonLine.elements[internalJsonLine.elements.length - 1].element !== ','){
+            internalJsonLine.elements.push(_addComma());
+        }
+
         jsonLine.lines.push(internalJsonLine);
 
         if(Array.isArray(internalJsonLine.elements[internalJsonLine.elements.length - 1])){
@@ -341,8 +345,7 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
         jsonLines.push(jsonLine);
     }
     else{
-        var newObject = _createObject(obj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
-        jsonLines.push(newObject);
+        jsonLines = _createObject(obj, plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
     }
 
     return _adjustLinePlusId(jsonLines);

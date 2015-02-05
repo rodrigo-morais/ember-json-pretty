@@ -48,28 +48,6 @@ test('verify if tag name is CODE', function(){
 
     equal(this.$().context.tagName, 'CODE');
 });
-/*
-test('verify if exist content CODE element', function(){
-    var component = this.subject(),
-        jsonObj,
-        firstElement;
-
-    Ember.run(function(){
-        jsonObj = {
-            'key1': 'value1',
-            'key2': 'value2'
-        };
-        component
-            .set(
-                'jsonObj',
-                JSON.stringify(jsonObj)
-            );
-    });
-
-    firstElement = Ember.$(this.$()[0]);
-    
-    equal(firstElement.context.firstElementChild.tagName, 'CODE');
-});
 
 test('verify if JSON was printed', function(){
     var component = this.subject(),
@@ -87,11 +65,11 @@ test('verify if JSON was printed', function(){
             );
     });
 
-    code = Ember.$(this.$()[0]);
+    code = this.$();
 
-    equal(code.context.textContent.replace(/(\r\n|\n|\r)/gm, '').replace(/\s+/g, ''), '{key1:"value1",key2:"value2"}');
+    equal(code.context.textContent.replace(/(\r\n|\n|\r)/gm, '').replace(/\s+/g, ''), '{key1:value1,key2:value2}');
 });
-
+/*
 test('verify if second element in JSON is brace', function(){
     var component = this.subject(),
         jsonObj,
