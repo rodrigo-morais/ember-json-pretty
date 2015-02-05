@@ -236,16 +236,23 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
 var _adjustLinePlusId = function(jsonLines){
     jsonLines.forEach(function(_line){
         var plusId = '';
-        _line.elements.forEach(function(_element){
-            if(_element.plusId){
-                plusId = _element.plusId;
+
+        if(_line.elements){
+            _line.elements.forEach(function(_element){
+                if(_element.plusId){
+                    plusId = _element.plusId;
+                }
+            });
+        }
+
+        if(_line.lines){
+            _line.lines.forEach(function(_internalLine){
+                _internalLine.plusId = plusId;
+            });
+
+            if(_line.lines.length > 0){
+                _line.lines = _adjustLinePlusId(_line.lines);
             }
-        });
-        _line.lines.forEach(function(_internalLine){
-            _internalLine.plusId = plusId;
-        });
-        if(_line.lines.length > 0){
-            _line.lines = _adjustLinePlusId(_line.lines);
         }
     });
     return jsonLines;

@@ -23,9 +23,14 @@ var _rgb2hex = function (rgb) {
      }
 };
 
-moduleForComponent('ember-json-pretty');
+moduleForComponent('ember-json-pretty',
+                    'component to print JSON with color and highlights and allow expand and retract arrays and objects',
+    {
+        needs: ['template:components/ember-line']
+    }
+);
 
-test('verify if tag name is PRE', function(){
+test('verify if tag name is CODE', function(){
     var component = this.subject(),
         jsonObj;
     
@@ -41,9 +46,9 @@ test('verify if tag name is PRE', function(){
             );
     });
 
-    equal(this.$().context.tagName, 'PRE');
+    equal(this.$().context.tagName, 'CODE');
 });
-
+/*
 test('verify if exist content CODE element', function(){
     var component = this.subject(),
         jsonObj,
@@ -927,4 +932,4 @@ test('verify if exist a icone with class to plus signal before each brace', func
             ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
         }
     });
-});
+});*/
