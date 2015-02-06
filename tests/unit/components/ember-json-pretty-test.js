@@ -69,53 +69,61 @@ test('verify if JSON was printed', function(){
 
     equal(code.context.textContent.replace(/(\r\n|\n|\r)/gm, '').replace(/\s+/g, ''), '{key1:value1,key2:value2}');
 });
+
+test('verify if into first line the element that is presented is a brace', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, firstLine, brace;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = this.$();
+    firstLine = Ember.$(code).find('div.jsonTreeView')[0];
+    brace = Ember.$(firstLine).find('span')[0];
+
+    ok(Ember.$(brace).hasClass('json-brace'));
+});
+
+test('verify if into second line there is a JSON key after the blank spaces', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, secondLine, key;
+
+    Ember.run(function(){
+        jsonObj = {
+            'key1': 'value1',
+            'key2': 'value2'
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = this.$();
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
+
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    ok(Ember.$(key).hasClass('json-key'));
+});
 /*
-test('verify if second element in JSON is brace', function(){
-    var component = this.subject(),
-        jsonObj,
-        code, firstSpan;
-
-    Ember.run(function(){
-        jsonObj = {
-            'key1': 'value1',
-            'key2': 'value2'
-        };
-        component
-            .set(
-                'jsonObj',
-                jsonObj
-            );
-    });
-
-    code = Ember.$(this.$()[0]);
-    firstSpan = Ember.$(code).find('span')[1];
-
-    ok(Ember.$(firstSpan).hasClass('json-brace'));
-});
-
-test('verify if third element in JSON is a JSON key', function(){
-    var component = this.subject(),
-        jsonObj,
-        code, keySpan;
-
-    Ember.run(function(){
-        jsonObj = {
-            'key1': 'value1',
-            'key2': 'value2'
-        };
-        component
-            .set(
-                'jsonObj',
-                jsonObj
-            );
-    });
-
-    code = Ember.$(this.$()[0]);
-    keySpan = Ember.$(code).find('span')[2];
-
-    ok(Ember.$(keySpan).hasClass('json-key'));
-});
-
 test('verify if exist separator between JSON key and value', function(){
     var component = this.subject(),
         jsonObj,
