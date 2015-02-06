@@ -210,10 +210,6 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
             .elements
                 .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma));
 
-        if(hasComma && internalJsonLine.elements[internalJsonLine.elements.length - 1].element !== ','){
-            internalJsonLine.elements.push(_addComma());
-        }
-
         jsonLine.lines.push(internalJsonLine);
 
         if(Array.isArray(internalJsonLine.elements[internalJsonLine.elements.length - 1])){
@@ -228,6 +224,11 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
             internalJsonLine.lines = internalArray[0].lines;
 
             jsonLine.lines.push(internalArray[internalArray.length - 1]);
+        }
+        else{
+            if(hasComma && internalJsonLine.elements[internalJsonLine.elements.length - 1].element !== ','){
+                internalJsonLine.elements.push(_addComma());
+            }
         }
     });
 
