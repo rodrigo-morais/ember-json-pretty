@@ -810,7 +810,7 @@ test('verify changed highlight color of bracket node', function(){
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#FFBBFF');
 });
-/*
+
 test('verify if exist a icone before the first bracket', function(){
     var component = this.subject(),
         jsonObj,
@@ -842,7 +842,7 @@ test('verify if exist a icone before the first bracket', function(){
     ok(Ember.$(plusSignal).is('i'));
 });
 
-test('verify if exist a icone with class to plus signal before the first bracket', function(){
+test('verify if exist a icone with class to minus signal before the first bracket', function(){
     var component = this.subject(),
         jsonObj,
         code, bracketSpan, plusSignal;
@@ -865,12 +865,14 @@ test('verify if exist a icone with class to plus signal before the first bracket
             );
     });
 
-    code = Ember.$(this.$()).find('code');
-    plusSignal = code.children()[0];
+    code = this.$();
+    plusSignal = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).children().first();
 
-    ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
+    ok(Ember.$(plusSignal).hasClass('fa-minus-square-o'));
 });
-
+/*
 test('verify if exist a icone before each bracket', function(){
     var component = this.subject(),
         jsonObj,
