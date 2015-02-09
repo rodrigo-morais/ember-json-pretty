@@ -676,7 +676,7 @@ test('verify changed highlight color of brace node', function(){
 
     equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#FFBBFF');
 });
-/*
+
 test('verify standard color of bracket node', function(){
     var component = this.subject(),
         jsonObj,
@@ -701,7 +701,9 @@ test('verify standard color of bracket node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    bracketSpan = Ember.$(code).find('.json-bracket');
+    bracketSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('color')), '#000000');
 });
@@ -735,7 +737,9 @@ test('verify changed color of bracket node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    bracketSpan = Ember.$(code).find('.json-bracket');
+    bracketSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('color')), '#FF34B3');
 });
@@ -764,7 +768,9 @@ test('verify standard highlight color of bracket node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    bracketSpan = Ember.$(code).find('.json-bracket');
+    bracketSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#00000000');
 });
@@ -798,11 +804,13 @@ test('verify changed highlight color of bracket node', function(){
     });
 
     code = Ember.$(this.$()[0]);    
-    bracketSpan = Ember.$(code).find('.json-bracket');
+    bracketSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#FFBBFF');
 });
-
+/*
 test('verify if exist a icone before the first bracket', function(){
     var component = this.subject(),
         jsonObj,
