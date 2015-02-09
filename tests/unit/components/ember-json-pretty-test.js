@@ -566,7 +566,7 @@ test('verify changed highlight color of string node', function(){
 
     equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#FFBBFF');
 });
-/*
+
 test('verify standard color of brace node', function(){
     var component = this.subject(),
         jsonObj,
@@ -585,7 +585,9 @@ test('verify standard color of brace node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    braceSpan = Ember.$(code).find('.json-brace');
+    braceSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(braceSpan).css('color')), '#000000');
 });
@@ -613,7 +615,9 @@ test('verify changed color of brace node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    braceSpan = Ember.$(code).find('.json-brace');
+    braceSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(braceSpan).css('color')), '#FF34B3');
 });
@@ -636,7 +640,9 @@ test('verify standard highlight color of brace node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    braceSpan = Ember.$(code).find('.json-brace');
+    braceSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#00000000');
 });
@@ -664,11 +670,13 @@ test('verify changed highlight color of brace node', function(){
     });
 
     code = Ember.$(this.$()[0]);    
-    braceSpan = Ember.$(code).find('.json-brace');
+    braceSpan = Ember.$(Ember.$(code)
+                            .find('div.jsonTreeView')[0]
+                        ).find('span').first();
 
     equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#FFBBFF');
 });
-
+/*
 test('verify standard color of bracket node', function(){
     var component = this.subject(),
         jsonObj,
