@@ -123,11 +123,11 @@ test('verify if into second line there is a JSON key after the blank spaces', fu
 
     ok(Ember.$(key).hasClass('json-key'));
 });
-/*
+
 test('verify if exist separator between JSON key and value', function(){
     var component = this.subject(),
         jsonObj,
-        code, keySpan;
+        code, key, secondLine;
 
     Ember.run(function(){
         jsonObj = {
@@ -141,10 +141,17 @@ test('verify if exist separator between JSON key and value', function(){
             );
     });
 
-    code = Ember.$(this.$()[0]);
-    keySpan = Ember.$(code).find('span')[2];    
+    code = this.$();
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
 
-    equal(Ember.$(Ember.$(keySpan))[0].nextSibling.textContent.trim(), ':');
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    equal(Ember.$(Ember.$(key)).next().text().trim(), ':');
 });
 
 test('verify if last element in JSON is brace', function(){
@@ -165,7 +172,7 @@ test('verify if last element in JSON is brace', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    lastSpan = Ember.$(code).find('span').last();
+    lastSpan = Ember.$(Ember.$(code).find('div.jsonTreeView')[1]).children().last();
 
     ok(Ember.$(lastSpan).hasClass('json-brace'));
 });
@@ -173,7 +180,7 @@ test('verify if last element in JSON is brace', function(){
 test('verify standard color of key node', function(){
     var component = this.subject(),
         jsonObj,
-        code, keySpan;
+        code, secondLine, key;
 
     Ember.run(function(){
         jsonObj = {
@@ -188,15 +195,22 @@ test('verify standard color of key node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    keySpan = Ember.$(code).find('.json-key');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
 
-    equal(_rgb2hex(Ember.$(keySpan).css('color')), '#A52A2A');
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    equal(_rgb2hex(Ember.$(key).css('color')), '#A52A2A');
 });
 
 test('verify changed color of key node', function(){
     var component = this.subject(),
         jsonObj,
-        code, keySpan;
+        code, secondLine, key;
 
     Ember.run(function(){
         jsonObj = {
@@ -216,15 +230,22 @@ test('verify changed color of key node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    keySpan = Ember.$(code).find('.json-key');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
 
-    equal(_rgb2hex(Ember.$(keySpan).css('color')), '#00FF7F');
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    equal(_rgb2hex(Ember.$(key).css('color')), '#00FF7F');
 });
 
 test('verify standard highlight color of key node', function(){
     var component = this.subject(),
         jsonObj,
-        code, keySpan;
+        code, secondLine, key;
 
     Ember.run(function(){
         jsonObj = {
@@ -239,15 +260,22 @@ test('verify standard highlight color of key node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    keySpan = Ember.$(code).find('.json-key');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
 
-    equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00000000');
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    equal(_rgb2hex(Ember.$(key).css('background-color')), '#00000000');
 });
 
 test('verify changed highlight color of key node', function(){
     var component = this.subject(),
         jsonObj,
-        code, keySpan;
+        code, secondLine, key;
 
     Ember.run(function(){
         jsonObj = {
@@ -266,16 +294,23 @@ test('verify changed highlight color of key node', function(){
                 );
     });
 
-    code = Ember.$(this.$()[0]);    
-    keySpan = Ember.$(code).find('.json-key');
+    code = Ember.$(this.$()[0]);
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    key = Ember.$(secondLine).children()[0];
 
-    equal(_rgb2hex(Ember.$(keySpan).css('background-color')), '#00FFFF');
+    while(Ember.$(key).hasClass('json-blank')){
+        key = Ember.$(key).next();
+    }
+
+    equal(_rgb2hex(Ember.$(key).css('background-color')), '#00FFFF');
 });
 
 test('verify standard color of value node', function(){
     var component = this.subject(),
         jsonObj,
-        code, valueSpan;
+        code, secondLine, valueSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -290,7 +325,14 @@ test('verify standard color of value node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    valueSpan = Ember.$(code).find('.json-value');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    valueSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(valueSpan).hasClass('json-value') && valueSpan){
+        valueSpan = Ember.$(valueSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#000080');
 });
@@ -298,7 +340,7 @@ test('verify standard color of value node', function(){
 test('verify changed color of value node', function(){
     var component = this.subject(),
         jsonObj,
-        code, valueSpan;
+        code, secondLine, valueSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -318,7 +360,14 @@ test('verify changed color of value node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    valueSpan = Ember.$(code).find('.json-value');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    valueSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(valueSpan).hasClass('json-value') && valueSpan){
+        valueSpan = Ember.$(valueSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(valueSpan).css('color')), '#FF0000');
 });
@@ -326,7 +375,7 @@ test('verify changed color of value node', function(){
 test('verify standard highlight color of value node', function(){
     var component = this.subject(),
         jsonObj,
-        code, valueSpan;
+        code, secondLine, valueSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -341,7 +390,14 @@ test('verify standard highlight color of value node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    valueSpan = Ember.$(code).find('.json-value');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    valueSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(valueSpan).hasClass('json-value') && valueSpan){
+        valueSpan = Ember.$(valueSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#00000000');
 });
@@ -349,7 +405,7 @@ test('verify standard highlight color of value node', function(){
 test('verify changed highlight color of value node', function(){
     var component = this.subject(),
         jsonObj,
-        code, valueSpan;
+        code, secondLine, valueSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -369,7 +425,14 @@ test('verify changed highlight color of value node', function(){
     });
 
     code = Ember.$(this.$()[0]);    
-    valueSpan = Ember.$(code).find('.json-value');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[0];
+    valueSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(valueSpan).hasClass('json-value') && valueSpan){
+        valueSpan = Ember.$(valueSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#E0FFFF');
 });
@@ -377,7 +440,7 @@ test('verify changed highlight color of value node', function(){
 test('verify standard color of string node', function(){
     var component = this.subject(),
         jsonObj,
-        code, stringSpan;
+        code, secondLine, stringSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -392,7 +455,14 @@ test('verify standard color of string node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    stringSpan = Ember.$(code).find('.json-string');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[1];
+    stringSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(stringSpan).hasClass('json-string') && stringSpan){
+        stringSpan = Ember.$(stringSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(stringSpan).css('color')), '#C0FF3E');
 });
@@ -400,7 +470,7 @@ test('verify standard color of string node', function(){
 test('verify changed color of string node', function(){
     var component = this.subject(),
         jsonObj,
-        code, stringSpan;
+        code, secondLine, stringSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -420,7 +490,14 @@ test('verify changed color of string node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    stringSpan = Ember.$(code).find('.json-string');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[1];
+    stringSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(stringSpan).hasClass('json-string') && stringSpan){
+        stringSpan = Ember.$(stringSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(stringSpan).css('color')), '#FF34B3');
 });
@@ -428,7 +505,7 @@ test('verify changed color of string node', function(){
 test('verify standard highlight color of string node', function(){
     var component = this.subject(),
         jsonObj,
-        code, stringSpan;
+        code, secondLine, stringSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -443,7 +520,14 @@ test('verify standard highlight color of string node', function(){
     });
 
     code = Ember.$(this.$()[0]);
-    stringSpan = Ember.$(code).find('.json-string');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[1];
+    stringSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(stringSpan).hasClass('json-string') && stringSpan){
+        stringSpan = Ember.$(stringSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#00000000');
 });
@@ -451,7 +535,7 @@ test('verify standard highlight color of string node', function(){
 test('verify changed highlight color of string node', function(){
     var component = this.subject(),
         jsonObj,
-        code, stringSpan;
+        code, secondLine, stringSpan;
 
     Ember.run(function(){
         jsonObj = {
@@ -471,11 +555,18 @@ test('verify changed highlight color of string node', function(){
     });
 
     code = Ember.$(this.$()[0]);    
-    stringSpan = Ember.$(code).find('.json-string');
+    secondLine = Ember.$(
+                        Ember.$(code).find('div.jsonTreeView')[0]
+                    ).find('div.new-line')[1];
+    stringSpan = Ember.$(secondLine).children()[0];
+
+    while(!Ember.$(stringSpan).hasClass('json-string') && stringSpan){
+        stringSpan = Ember.$(stringSpan).next();
+    }
 
     equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#FFBBFF');
 });
-
+/*
 test('verify standard color of brace node', function(){
     var component = this.subject(),
         jsonObj,
