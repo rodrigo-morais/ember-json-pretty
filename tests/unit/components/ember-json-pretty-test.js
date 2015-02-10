@@ -872,7 +872,7 @@ test('verify if exist a icone with class to minus signal before the first bracke
 
     ok(Ember.$(plusSignal).hasClass('fa-minus-square-o'));
 });
-/*
+
 test('verify if exist a icone before each bracket', function(){
     var component = this.subject(),
         jsonObj,
@@ -896,23 +896,21 @@ test('verify if exist a icone before each bracket', function(){
             );
     });
 
-    code = Ember.$(this.$()).find('code');
+    code = this.$();
 
-    Ember.$.each(code.children(), function(index, element){
-        if( (   Ember.$(element).hasClass('json-bracket') &&
-                Ember.$(element).text() === '['
-            ) ||
-            Ember.$(element).hasClass('json-bracket-internal')
+    Ember.$.each(code.find('div.jsonTreeView').children(), function(index, element){
+        if( Ember.$(element).hasClass('json-bracket') &&
+            Ember.$(element).text().trim() === '['
         )
         {
-            plusSignal = code.children()[index - 1];
+            plusSignal = code.find('div.jsonTreeView').children()[index - 1];
 
             ok(Ember.$(plusSignal).is('i'));
         }
     });
 });
 
-test('verify if exist a icone with class to plus signal before each bracket', function(){
+test('verify if exist a icone with class to minus signal before each bracket', function(){
     var component = this.subject(),
         jsonObj,
         code, bracketSpan, plusSignal;
@@ -935,18 +933,16 @@ test('verify if exist a icone with class to plus signal before each bracket', fu
             );
     });
 
-    code = Ember.$(this.$()).find('code');
+    code = this.$();
 
-    Ember.$.each(code.children(), function(index, element){
-        if( (   Ember.$(element).hasClass('json-bracket') &&
-                Ember.$(element).text() === '['
-            ) ||
-            Ember.$(element).hasClass('json-bracket-internal')
+    Ember.$.each(code.find('div.jsonTreeView').children(), function(index, element){
+        if( Ember.$(element).hasClass('json-bracket') &&
+            Ember.$(element).text().trim() === '['
         )
         {
-            plusSignal = code.children()[index - 1];
+            plusSignal = code.find('div.jsonTreeView').children()[index - 1];
 
-            ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
+            ok(Ember.$(plusSignal).hasClass('fa-minus-square-o'));
         }
     });
 });
@@ -977,21 +973,32 @@ test('verify if exist a icone before each brace', function(){
             );
     });
 
-    code = Ember.$(this.$()).find('code');
+    code = this.$();
 
-    Ember.$.each(code.children(), function(index, element){
+    Ember.$.each(code.find('div.jsonTreeView').children(), function(index, element){
         if( Ember.$(element).hasClass('json-brace') &&
-            Ember.$(element).text() === '{'
+            Ember.$(element).text().trim() === '{'
         )
         {
-            plusSignal = code.children()[index - 1];
+            plusSignal = code.find('div.jsonTreeView').children()[index - 1];
+
+            ok(Ember.$(plusSignal).is('i'));
+        }
+    });
+
+    Ember.$.each(code.find('div.new-line').children(), function(index, element){
+        if( Ember.$(element).hasClass('json-brace') &&
+            Ember.$(element).text().trim() === '{'
+        )
+        {
+            plusSignal = code.find('div.new-line').children()[index - 1];
 
             ok(Ember.$(plusSignal).is('i'));
         }
     });
 });
 
-test('verify if exist a icone with class to plus signal before each brace', function(){
+test('verify if exist a icone with class to minus signal before each brace', function(){
     var component = this.subject(),
         jsonObj,
         code, bracketSpan, plusSignal;
@@ -1017,16 +1024,27 @@ test('verify if exist a icone with class to plus signal before each brace', func
             );
     });
 
-    code = Ember.$(this.$()).find('code');
+    code = this.$();
 
-    Ember.$.each(code.children(), function(index, element){
+    Ember.$.each(code.find('div.jsonTreeView').children(), function(index, element){
         if( Ember.$(element).hasClass('json-brace') &&
-            Ember.$(element).text() === '{'
+            Ember.$(element).text().trim() === '{'
         )
         {
-            plusSignal = code.children()[index - 1];
+            plusSignal = code.find('div.jsonTreeView').children()[index - 1];
 
             ok(Ember.$(plusSignal).hasClass('fa-plus-square-o'));
         }
     });
-});*/
+
+    Ember.$.each(code.find('div.new-line').children(), function(index, element){
+        if( Ember.$(element).hasClass('json-brace') &&
+            Ember.$(element).text().trim() === '{'
+        )
+        {
+            plusSignal = code.find('div.new-line').children()[index - 1];
+
+            ok(Ember.$(plusSignal).hasClass('fa-minus-square-o'));
+        }
+    });
+});
