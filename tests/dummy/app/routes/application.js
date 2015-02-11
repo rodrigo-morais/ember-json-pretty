@@ -2,12 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     model: function () {
-        return {    "menus": /*{
-                        "key1": "value1",
-                        "key2": "value2"
-                    }
-                };*/
-                    [
+        return {    "menus": [
                         {
                             "name": "menu 1",
                             "events": ["click", "hover"],
