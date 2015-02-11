@@ -11,8 +11,6 @@ var _addBrace = function(element, plusId, numberSpaces, hasPlus, braceColor, bra
         jsonLine.elements.push(_addBlank());
     }
 
-    jsonObj.newLine = true;
-    jsonObj.endLine = true;
     jsonObj.hasPlus = hasPlus;
     jsonObj.plusId = 'plus_' + plusId;
     jsonObj.isBlank = false;
@@ -28,8 +26,6 @@ var _addBrace = function(element, plusId, numberSpaces, hasPlus, braceColor, bra
 var _addBlank = function(){
     var jsonObj = {};
 
-    jsonObj.newLine = true;
-    jsonObj.endLine = false;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.element = '';
@@ -43,8 +39,6 @@ var _addBlank = function(){
 var _addKey = function(key, plusId, numberSpaces, keyColor, keyHighlight){
     var jsonObj = {};
 
-    jsonObj.newLine = true;
-    jsonObj.endLine = false;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -58,8 +52,6 @@ var _addKey = function(key, plusId, numberSpaces, keyColor, keyHighlight){
 var _addTwoPoints = function(){
     var jsonObj = {};
 
-    jsonObj.newLine = false;
-    jsonObj.endLine = false;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -103,8 +95,6 @@ var _addValue = function(value, plusId, numberSpaces, keyColor, keyHighlight, va
 var _addStringValue = function(value, stringColor, stringHighlight){
     var jsonObj = {};
 
-    jsonObj.newLine = true;
-    jsonObj.endLine = true;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -122,8 +112,6 @@ var _addObjectValue = function(value, plusId, numberSpacesInitial, keyColor, key
 var _addStandardValue = function(value, valueColor, valueHighlight){
     var jsonObj = {};
 
-    jsonObj.newLine = false;
-    jsonObj.endLine = false;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -144,8 +132,6 @@ var _addArrayStandardValues = function(value){
 
     arrayValue = arrayValue.substr(0, arrayValue.length - 2) + ']';
 
-    jsonObj.newLine = true;
-    jsonObj.endLine = true;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -159,8 +145,6 @@ var _addArrayStandardValues = function(value){
 var _addComma = function(){
     var jsonObj = {};
 
-    jsonObj.newLine = false;
-    jsonObj.endLine = true;
     jsonObj.hasPlus = false;
     jsonObj.plusId = null;
     jsonObj.isBlank = false;
@@ -279,8 +263,6 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
     if(Array.isArray(obj)){
         numberSpaces = numberSpaces + 1;
 
-        jsonObj.newLine = true;
-        jsonObj.endLine = true;
         jsonObj.hasPlus = true;
         jsonObj.plusId = 'plus_' + plusId;
         jsonObj.element = '[';
@@ -328,8 +310,6 @@ var _createJSONTree = function(obj, numberSpaces, plusId, keyColor, keyHighlight
             jsonLine.elements.push(_addBlank());
         }
 
-        jsonObj.newLine = true;
-        jsonObj.endLine = true;
         jsonObj.hasPlus = false;
         jsonObj.plusId = null;
         jsonObj.element = ']';
