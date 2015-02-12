@@ -7,6 +7,10 @@ export default Ember.Route.extend({
                             "name": "menu 1",
                             "events": ["click", "hover"],
                             "type": "list",
+                            "object": {
+                                "key": "value1",
+                                "another": 1
+                            },
                             "submenus": [
                                 {
                                     "name": "submenu 1",

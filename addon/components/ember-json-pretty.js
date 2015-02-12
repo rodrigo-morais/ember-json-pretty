@@ -170,10 +170,11 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
     numberSpaces = numberSpaces + 1;
     Object.keys(obj).forEach(function(key, index){
         var hasComma = false,
-        internalJsonLine = {
-            elements: [],
-            lines: []
-        };
+            internalJsonLine = {
+                elements: [],
+                lines: []
+            },
+            newValue;
 
         plusId = plusId + 1;
 
@@ -183,16 +184,45 @@ var _createObject = function(obj, plusId, numberSpacesInitial, keyColor, keyHigh
 
         internalJsonLine
             .elements
-                .push(_addKey(key, plusId, numberSpaces, keyColor, keyHighlight));
+            .push(_addKey(key, plusId, numberSpaces, keyColor, keyHighlight));
         internalJsonLine
             .elements
-                .push(_addTwoPoints());
+            .push(_addTwoPoints());
 
         hasComma = index < (Object.keys(obj).length -1);
 
-        internalJsonLine
-            .elements
-                .push(_addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma));
+        newValue = _addValue(obj[key], plusId, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma);
+
+        if(Array.isArray(newValue) && newValue[0].elements[newValue[0].elements.length - 1].class === 'json-brace'){
+            var openBrace = newValue[0].elements[newValue[0].elements.length - 1],
+                closeBrace = newValue[1].elements[newValue[0].elements.length - 1];
+            
+            internalJsonLine
+                .elements
+                .push(openBrace);
+
+            internalJsonLine.lines = internalJsonLine
+                                        .lines
+                                        .concat(newValue[0].lines);
+
+            jsonLine.lines.push(internalJsonLine);
+
+            internalJsonLine = {
+                elements: [],
+                lines: []
+            };
+
+            newValue[1].elements.forEach(function (element) {
+                internalJsonLine
+                    .elements
+                    .push(element);
+            });
+        }
+        else{
+            internalJsonLine
+                .elements
+                .push(newValue);
+        }
 
         jsonLine.lines.push(internalJsonLine);
 
