@@ -5,13 +5,14 @@
 {{outlet}}
 
 {{ ember-json-pretty jsonObj=this.model.menus
-    keyColor="#00FF7F"
-    keyHighlight="#FAFAD2"
-    valueColor="#FF0000"
-    valueHighlight="#FFE4E1"
-    stringColor="#551A8B"
-    stringHighlight="#FFD39B"
-    braceColor="#8B864E"
-    braceHighlight="#FFD39B"
-    bracketColor="#FFB90F"
-    bracketHighlight="#90EE90" }}
+    options='{
+        "keyColor":"#00FF7F",
+        "keyHighlight":"#FAFAD2",
+        "valueColor":"#FF0000",
+        "valueHighlight":"#FFE4E1",
+        "stringColor":"#551A8B",
+        "stringHighlight":"#FFD39B",
+        "braceColor":"#8B864E",
+        "braceHighlight":"#FFD39B",
+        "bracketColor":"#FFB90F",
+        "bracketHighlight":"#90EE90"}' }}

@@ -381,34 +381,38 @@ var _prettyPrint = function(    obj,
 
 export default Ember.Component.extend({
     tagName: 'code',
-    keyColor: '#A52A2A',
-    keyHighlight: '#FFFFFF00',
-    valueColor: '#000080',
-    valueHighlight: '#FFFFFF00',
-    stringColor: '#C0FF3E',
-    stringHighlight: '#FFFFFF00',
-    braceColor: '#000000',
-    braceHighlight: '#FFFFFF00',
-    bracketColor: '#000000',
-    bracketHighlight: '#FFFFFF00',
+    optionsDefault: {
+        keyColor: '#A52A2A',
+        keyHighlight: '#FFFFFF',
+        valueColor: '#000080',
+        valueHighlight: '#FFFFFF',
+        stringColor: '#C0FF3E',
+        stringHighlight: '#FFFFFF',
+        braceColor: '#000000',
+        braceHighlight: '#FFFFFF',
+        bracketColor: '#000000',
+        bracketHighlight: '#FFFFFF'
+    },
+    options: {},
     pretty: function () {
         var jsonObj = this.get('jsonObj'),
-            keyColor = this.get('keyColor'),
-            keyHighlight = this.get('keyHighlight'),
-            valueColor = this.get('valueColor'),
-            valueHighlight = this.get('valueHighlight'),
-            stringColor = this.get('stringColor'),
-            stringHighlight = this.get('stringHighlight'),
-            braceColor = this.get('braceColor'),
-            braceHighlight = this.get('braceHighlight'),
-            bracketColor = this.get('bracketColor'),
-            bracketHighlight = this.get('bracketHighlight'),
-            json_pretty = _prettyPrint( jsonObj,
-                                        keyColor, keyHighlight,
-                                        valueColor, valueHighlight,
-                                        stringColor, stringHighlight,
-                                        braceColor, braceHighlight,
-                                        bracketColor, bracketHighlight);
+            options,
+            json_pretty;
+
+        
+        if(this.options){
+            options = $.extend({}, this.optionsDefault, JSON.parse(this.options));
+        }
+        else{
+            options = this.optionsDefault;
+        }
+
+        json_pretty = _prettyPrint( jsonObj,
+                                    options['keyColor'], options['keyHighlight'],
+                                    options['valueColor'], options['valueHighlight'],
+                                    options['stringColor'], options['stringHighlight'],
+                                    options['braceColor'], options['braceHighlight'],
+                                    options['bracketColor'], options['bracketHighlight']);
         
         return json_pretty;
     }.property('jsonObj'),
