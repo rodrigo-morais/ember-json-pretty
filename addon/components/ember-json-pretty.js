@@ -398,14 +398,20 @@ export default Ember.Component.extend({
         var jsonObj = this.get('jsonObj'),
             options,
             json_pretty;
-
-        
+     
         if(this.options){
-            options = $.extend({}, this.optionsDefault, JSON.parse(this.options));
+            if(typeof this.options === 'object'){
+                options = $.extend({}, this.optionsDefault, this.options);
+            }
+            else{
+                options = $.extend({}, this.optionsDefault, JSON.parse(this.options));
+            }
         }
         else{
             options = this.optionsDefault;
         }
+
+        this.set('options', options);
 
         json_pretty = _prettyPrint( jsonObj,
                                     options['keyColor'], options['keyHighlight'],
