@@ -219,14 +219,14 @@ test('verify changed color of key node', function(){
         };
         component
             .set(
+                    'options',
+                    {'keyColor':'#00FF7F'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'keyColor',
-                    '#00FF7F'
-                );
     });
 
     code = Ember.$(this.$()[0]);
@@ -269,7 +269,7 @@ test('verify standard highlight color of key node', function(){
         key = Ember.$(key).next();
     }
 
-    equal(_rgb2hex(Ember.$(key).css('background-color')), '#00000000');
+    equal(_rgb2hex(Ember.$(key).css('background-color')), '#FFFFFF');
 });
 
 test('verify changed highlight color of key node', function(){
@@ -284,14 +284,14 @@ test('verify changed highlight color of key node', function(){
         };
         component
             .set(
+                    'options',
+                    {'keyHighlight':'#00FFFF'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'keyHighlight',
-                    '#00FFFF'
-                );
     });
 
     code = Ember.$(this.$()[0]);
@@ -349,14 +349,14 @@ test('verify changed color of value node', function(){
         };
         component
             .set(
+                    'options',
+                    {'valueColor':'#FF0000'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'valueColor',
-                    '#FF0000'
-                );
     });
 
     code = Ember.$(this.$()[0]);
@@ -399,7 +399,7 @@ test('verify standard highlight color of value node', function(){
         valueSpan = Ember.$(valueSpan).next();
     }
 
-    equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#00000000');
+    equal(_rgb2hex(Ember.$(valueSpan).css('background-color')), '#FFFFFF');
 });
 
 test('verify changed highlight color of value node', function(){
@@ -414,14 +414,14 @@ test('verify changed highlight color of value node', function(){
         };
         component
             .set(
+                    'options',
+                    {'valueHighlight':'#E0FFFF'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'valueHighlight',
-                    '#E0FFFF'
-                );
     });
 
     code = Ember.$(this.$()[0]);    
@@ -479,14 +479,14 @@ test('verify changed color of string node', function(){
         };
         component
             .set(
+                    'options',
+                    {'stringColor':'#FF34B3'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'stringColor',
-                    '#FF34B3'
-                );
     });
 
     code = Ember.$(this.$()[0]);
@@ -529,7 +529,7 @@ test('verify standard highlight color of string node', function(){
         stringSpan = Ember.$(stringSpan).next();
     }
 
-    equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#00000000');
+    equal(_rgb2hex(Ember.$(stringSpan).css('background-color')), '#FFFFFF');
 });
 
 test('verify changed highlight color of string node', function(){
@@ -544,14 +544,14 @@ test('verify changed highlight color of string node', function(){
         };
         component
             .set(
+                    'options',
+                    {'stringHighlight':'#FFBBFF'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'stringHighlight',
-                    '#FFBBFF'
-                );
     });
 
     code = Ember.$(this.$()[0]);    
@@ -604,14 +604,14 @@ test('verify changed color of brace node', function(){
         };
         component
             .set(
+                    'options',
+                    {'braceColor':'#FF34B3'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'braceColor',
-                    '#FF34B3'
-                );
     });
 
     code = Ember.$(this.$()[0]);
@@ -644,7 +644,7 @@ test('verify standard highlight color of brace node', function(){
                             .find('div.jsonTreeView')[0]
                         ).find('span').first();
 
-    equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#00000000');
+    equal(_rgb2hex(Ember.$(braceSpan).css('background-color')), '#FFFFFF');
 });
 
 test('verify changed highlight color of brace node', function(){
@@ -659,14 +659,14 @@ test('verify changed highlight color of brace node', function(){
         };
         component
             .set(
+                    'options',
+                    {'braceHighlight':'#FFBBFF'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'braceHighlight',
-                    '#FFBBFF'
-                );
     });
 
     code = Ember.$(this.$()[0]);    
@@ -726,14 +726,14 @@ test('verify changed color of bracket node', function(){
         ];
         component
             .set(
+                    'options',
+                    {'bracketColor':'#FF34B3'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'bracketColor',
-                    '#FF34B3'
-                );
     });
 
     code = this.$();
@@ -772,7 +772,7 @@ test('verify standard highlight color of bracket node', function(){
                             .find('div.jsonTreeView')[0]
                         ).find('span').first();
 
-    equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#00000000');
+    equal(_rgb2hex(Ember.$(bracketSpan).css('background-color')), '#FFFFFF');
 });
 
 test('verify changed highlight color of bracket node', function(){
@@ -793,14 +793,14 @@ test('verify changed highlight color of bracket node', function(){
         ];
         component
             .set(
+                    'options',
+                    {'bracketHighlight':'#FFBBFF'}
+                );
+        component
+            .set(
                 'jsonObj',
                 jsonObj
             );
-        component
-            .set(
-                    'bracketHighlight',
-                    '#FFBBFF'
-                );
     });
 
     code = this.$();    
