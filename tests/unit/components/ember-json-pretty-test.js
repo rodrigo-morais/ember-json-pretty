@@ -1048,3 +1048,79 @@ test('verify if exist a icone with class to minus signal before each brace', fun
         }
     });
 });
+
+test('verify if when icone is clicked the content within object is hidden', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': {
+                    'key3': 'value3',
+                    'key4': 'value4'
+                },
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = this.$();
+
+    Ember.$('#plus_0').trigger('click');
+
+    Ember.$('[data-id="plus_0"]').each(function(index, element){
+        equal(Ember.$(element).css('display'), 'none');
+    });
+});
+
+test('verify if when icone is clicked the content within object is hidden when icone is clicked again the content within object is showed', function(){
+    var component = this.subject(),
+        jsonObj,
+        code, bracketSpan, plusSignal;
+
+    Ember.run(function(){
+        jsonObj = [
+            {
+                'key1': 'value1',
+                'key2': 'value2'
+            },
+            {
+                'key1': {
+                    'key3': 'value3',
+                    'key4': 'value4'
+                },
+                'key2': 'value2'
+            }
+        ];
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = this.$();
+
+    Ember.$('#plus_0').trigger('click');
+
+    Ember.$('[data-id="plus_0"]').each(function(index, element){
+        equal(Ember.$(element).css('display'), 'none');
+    });
+
+    Ember.$('#plus_0').trigger('click');
+
+    Ember.$('[data-id="plus_0"]').each(function(index, element){
+        equal(Ember.$(element).css('display'), 'block');
+    });
+});
