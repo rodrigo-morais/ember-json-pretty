@@ -1,5 +1,5 @@
 {{#each line in pretty}}
-    <div class="jsonTreeView">
+    <div class="jsonTreeView" {{bind-attr id=id }}>
         {{partial 'components/ember-line'}}
     </div>
 {{/each}}

@@ -424,10 +424,16 @@ export default Ember.Component.extend({
         bracketHighlight: '#FFFFFF'
     },
     options: {},
+    id: '',
+    attributeBindings: ['customId:id'],
+    customId: '',
     pretty: function () {
         var jsonObj = this.get('jsonObj'),
             options,
-            json_pretty;
+            json_pretty,
+            randomId = Math.floor(Math.random() * 60000) + 1;
+
+        this.set('customId', randomId);
      
         if(this.options){
             if(typeof this.options === 'object'){
@@ -454,15 +460,16 @@ export default Ember.Component.extend({
     }.property('jsonObj'),
     actions: {
         toggleExpand: function(plusId){
-            if(Ember.$('#' + plusId).hasClass('fa-plus-square-o')){
-                Ember.$('#' + plusId).removeClass('fa-plus-square-o');
-                Ember.$('#' + plusId).addClass('fa-minus-square-o');
-                Ember.$('.jsonTreeView').find('[data-id="' + plusId + '"]').show();
+            var id = this.get('customId');
+            if(Ember.$('#' + id).find('#' + plusId).hasClass('fa-plus-square-o')){
+                Ember.$('#' + id).find('#' + plusId).removeClass('fa-plus-square-o');
+                Ember.$('#' + id).find('#' + plusId).addClass('fa-minus-square-o');
+                Ember.$('#' + id).find('.jsonTreeView').find('[data-id="' + plusId + '"]').show();
             }
             else{
-                Ember.$('#' + plusId).removeClass('fa-minus-square-o');
-                Ember.$('#' + plusId).addClass('fa-plus-square-o');
-                Ember.$('.jsonTreeView').find('[data-id="' + plusId + '"]').hide();
+                Ember.$('#' + id).find('#' + plusId).removeClass('fa-minus-square-o');
+                Ember.$('#' + id).find('#' + plusId).addClass('fa-plus-square-o');
+                Ember.$('#' + id).find('.jsonTreeView').find('[data-id="' + plusId + '"]').hide();
             }
         }
     }
