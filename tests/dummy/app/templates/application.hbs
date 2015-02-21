@@ -4,6 +4,11 @@
 
 {{outlet}}
 
+<h3>Standard styles</h3>
+{{ ember-json-pretty jsonObj=this.model.menus }}
+
+
+<h3>Change styles</h3>
 {{ ember-json-pretty jsonObj=this.model.menus
     options='{
         "keyColor":"#00FF7F",
