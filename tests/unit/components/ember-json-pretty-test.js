@@ -1052,7 +1052,7 @@ test('verify if exist a icone with class to minus signal before each brace', fun
 test('verify if when icone is clicked the content within object is hidden', function(){
     var component = this.subject(),
         jsonObj,
-        code, bracketSpan, plusSignal;
+        code, id;
 
     Ember.run(function(){
         jsonObj = [
@@ -1076,10 +1076,11 @@ test('verify if when icone is clicked the content within object is hidden', func
     });
 
     code = this.$();
+    id = Ember.$(code).find('i').prop('id');
 
-    Ember.$('#plus_0').trigger('click');
+    Ember.$('#' + id).trigger('click');
 
-    Ember.$('[data-id="plus_0"]').each(function(index, element){
+    Ember.$('[data-id="' + id + '"]').each(function(index, element){
         equal(Ember.$(element).css('display'), 'none');
     });
 });
@@ -1087,7 +1088,7 @@ test('verify if when icone is clicked the content within object is hidden', func
 test('verify if when icone is clicked the content within object is hidden when icone is clicked again the content within object is showed', function(){
     var component = this.subject(),
         jsonObj,
-        code, bracketSpan, plusSignal;
+        code, id;
 
     Ember.run(function(){
         jsonObj = [
@@ -1111,16 +1112,17 @@ test('verify if when icone is clicked the content within object is hidden when i
     });
 
     code = this.$();
+    id = Ember.$(code).find('i').prop('id');
 
-    Ember.$('#plus_0').trigger('click');
+    Ember.$('#' + id).trigger('click');
 
-    Ember.$('[data-id="plus_0"]').each(function(index, element){
+    Ember.$('[data-id="' + id + '"]').each(function(index, element){
         equal(Ember.$(element).css('display'), 'none');
     });
 
-    Ember.$('#plus_0').trigger('click');
+    Ember.$('#' + id).trigger('click');
 
-    Ember.$('[data-id="plus_0"]').each(function(index, element){
+    Ember.$('[data-id="' + id + '"]').each(function(index, element){
         equal(Ember.$(element).css('display'), 'block');
     });
 });
