@@ -372,19 +372,14 @@ var _createJSONTree = function(obj, numberSpaces, keyColor, keyHighlight, valueC
     return _adjustLinePlusId(jsonLines);
 };
 
-var _prettyPrint = function(    obj,
-                                keyColor, keyHighlight,
-                                valueColor, valueHighlight,
-                                stringColor, stringHighlight,
-                                braceColor, braceHighlight,
-                                bracketColor, bracketHighlight) {
+var _prettyPrint = function(obj, options) {
     
     var jsonTree = _createJSONTree( obj, 0,
-                                    keyColor, keyHighlight,
-                                    valueColor, valueHighlight,
-                                    stringColor, stringHighlight,
-                                    braceColor, braceHighlight,
-                                    bracketColor, bracketHighlight);
+                                    options['keyColor'], options['keyHighlight'],
+                                    options['valueColor'], options['valueHighlight'],
+                                    options['stringColor'], options['stringHighlight'],
+                                    options['braceColor'], options['braceHighlight'],
+                                    options['bracketColor'], options['bracketHighlight']);
 
     return jsonTree;
 };
@@ -430,11 +425,7 @@ export default Ember.Component.extend({
         this.set('options', options);
 
         json_pretty = _prettyPrint( jsonObj,
-                                    options['keyColor'], options['keyHighlight'],
-                                    options['valueColor'], options['valueHighlight'],
-                                    options['stringColor'], options['stringHighlight'],
-                                    options['braceColor'], options['braceHighlight'],
-                                    options['bracketColor'], options['bracketHighlight']);
+                                    options);
         
         return json_pretty;
     }.property('jsonObj'),
