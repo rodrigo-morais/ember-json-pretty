@@ -81,7 +81,7 @@ var _addValue = function(value, numberSpaces, keyColor, keyHighlight, valueColor
             }            
         }
         else if(value && typeof value === 'object'){
-            jsonObj = _addObjectValue(value, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+            jsonObj = _addObjectValue(value, numberSpaces, options);
         }
         else{
             jsonObj = _addStandardValue(value, valueColor, valueHighlight);
@@ -107,8 +107,8 @@ var _addStringValue = function(value, stringColor, stringHighlight){
     return jsonObj;
 };
 
-var _addObjectValue = function(value, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight){
-    return _createObject(value, numberSpacesInitial, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight);
+var _addObjectValue = function(value, numberSpacesInitial, options){
+    return _createObject(value, numberSpacesInitial, options);
 };
 
 var _addStandardValue = function(value, valueColor, valueHighlight){
