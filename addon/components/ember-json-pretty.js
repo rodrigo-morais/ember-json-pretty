@@ -64,12 +64,12 @@ var _addTwoPoints = function(){
     return jsonObj;
 };
 
-var _addValue = function(value, numberSpaces, keyColor, keyHighlight, valueColor, valueHighlight, stringColor, stringHighlight, braceColor, braceHighlight, bracketColor, bracketHighlight, hasComma, options){
+var _addValue = function(value, numberSpaces, hasComma, options){
     var jsonObj = {};
 
     if(value){
         if(typeof value === 'string'){
-            jsonObj = _addStringValue(value, stringColor, stringHighlight);
+            jsonObj = _addStringValue(value, options['stringColor'], options['stringHighlight']);
         }
         else if(Array.isArray(value)){
             if(typeof value[0] === 'object'){
@@ -84,11 +84,11 @@ var _addValue = function(value, numberSpaces, keyColor, keyHighlight, valueColor
             jsonObj = _addObjectValue(value, numberSpaces, options);
         }
         else{
-            jsonObj = _addStandardValue(value, valueColor, valueHighlight);
+            jsonObj = _addStandardValue(value, options['valueColor'], options['valueHighlight']);
         }
     }
     else{
-        jsonObj = _addStringValue('null', stringColor, stringHighlight);
+        jsonObj = _addStringValue('null', options['stringColor'], options['stringHighlight']);
     }
 
     return jsonObj;
@@ -172,7 +172,7 @@ var _createObject = function(obj, numberSpacesInitial, options) {
 
         hasComma = index < (Object.keys(obj).length -1);
 
-        newValue = _addValue(obj[key], numberSpaces, options['keyColor'], options['keyHighlight'], options['valueColor'], options['valueHighlight'], options['stringColor'], options['stringHighlight'], options['braceColor'], options['braceHighlight'], options['bracketColor'], options['bracketHighlight'], hasComma, options);
+        newValue = _addValue(obj[key], numberSpaces, hasComma, options);
 
         if(Array.isArray(newValue) && newValue[0].elements[newValue[0].elements.length - 1].class === 'json-brace'){
             var openBrace = newValue[0].elements[newValue[0].elements.length - 1],
