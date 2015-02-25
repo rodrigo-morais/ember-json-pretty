@@ -2,6 +2,10 @@ module.exports = {
   normalizeEntityName: function() {},
 
   afterInstall: function() {
-    return this.addBowerPackageToProject('components-font-awesome');
+    var that = this;
+
+    return this.addBowerPackageToProject('ember-json-pretty').then(function() {
+        return that.addBowerPackageToProject('components-font-awesome');
+    });
   }
 };
