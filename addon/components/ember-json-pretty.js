@@ -404,6 +404,10 @@ export default Ember.Component.extend({
             randomId = Math.floor(Math.random() * 60000) + 1;
 
         this.set('customId', randomId);
+
+        if(typeof jsonObj === 'string'){
+            jsonObj = JSON.parse(jsonObj);
+        }
      
         if(this.options){
             if(typeof this.options === 'object'){

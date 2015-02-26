@@ -1125,4 +1125,74 @@ test('verify if when icone is clicked the content within object is hidden when i
     Ember.$('[data-id="' + id + '"]').each(function(index, element){
         equal(Ember.$(element).css('display'), 'block');
     });
+
+    test('verify when JSON object informed is a text if into first line the element that is presented is a brace', function(){
+        var component = this.subject(),
+            jsonObj,
+            code, firstLine, brace;
+
+        Ember.run(function(){
+            jsonObj = '{"name": "menu 1","events": ["click", "hover"]}';
+            component
+                .set(
+                    'jsonObj',
+                    jsonObj
+                );
+        });
+
+        code = this.$();
+        firstLine = Ember.$(code).find('div.jsonTreeView')[0];
+        brace = Ember.$(firstLine).find('span')[0];
+
+        ok(Ember.$(brace).hasClass('json-brace'));
+    });
+
+    test('verify when JSON object informed is a text if into second line there is a JSON key after the blank spaces', function(){
+        var component = this.subject(),
+            jsonObj,
+            code, secondLine, key;
+
+        Ember.run(function(){
+            jsonObj = '{"name": "menu 1","events": ["click", "hover"]}';
+            component
+                .set(
+                    'jsonObj',
+                    jsonObj
+                );
+        });
+
+        code = this.$();
+        secondLine = Ember.$(
+                            Ember.$(code).find('div.jsonTreeView')[0]
+                        ).find('div.new-line')[0];
+        key = Ember.$(secondLine).children()[0];
+
+        while(Ember.$(key).hasClass('json-blank')){
+            key = Ember.$(key).next();
+        }
+
+        ok(Ember.$(key).hasClass('json-key'));
+        equal(Ember.$(key).text().trim(),'name');
+    });
+
+    test('verify when JSON object informed is a text if there are two keys in JSON object', function(){
+        var component = this.subject(),
+            jsonObj,
+            code, keys;
+
+        Ember.run(function(){
+            jsonObj = '{"name": "menu 1","events": ["click", "hover"]}';
+            component
+                .set(
+                    'jsonObj',
+                    jsonObj
+                );
+        });
+
+        code = this.$();
+        keys = Ember.$(code).find('.json-key');
+
+        
+        equal(keys.length,2);
+    });
 });
