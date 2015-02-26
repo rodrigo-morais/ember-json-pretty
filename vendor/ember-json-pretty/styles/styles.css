@@ -1,73 +1,3 @@
-/*
-div
-{
-    position: relative;
-    float: left;
-    width: 100%;
-    background-color: ghostwhite;
-    border: 1px solid #A52A2Asilver;
-    padding: 0px;
-    margin: 0px 0 2%;
-    display: inline-block;;
-    clear: none;
-}
-
-div code
-{
-    position: relative;
-    float: left;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    margin-top: -1%;
-}
-
-.json-brace,
-.json-bracket
-{
-    position: relative;
-    float: left;
-    clear: right;
-}
-
-.json-key
-{
-    position: relative;
-    float: left;
-    color: #A52A2A;
-}
-
-.json-value
-{
-    position: relative;
-    float: left;
-    color: #000080;
-}
-
-.json-string
-{
-    position: relative;
-    float: left;
-    color: #C0FF3E;
-}
-
-.json-blank,
-.json-comma
-{
-    position: relative;
-    float: left;
-}
-
-.plus-icon
-{
-    position: relative;
-    float: left !important;
-    margin-right: 0.5%;
-    cursor: pointer;
-}
-*/
-
 div.jsonTreeView
 {
     position: relative;
@@ -101,6 +31,7 @@ div.jsonTreeView i
 {
     margin-right: 0.5%;
     cursor: pointer;
+    color: #000000;
 }
 
 .json-two-points
