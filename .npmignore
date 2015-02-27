@@ -10,3 +10,8 @@ tests/
 bower.json
 Brocfile.js
 testem.json
+node_modules
+
+addon
+app
+tests
