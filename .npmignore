@@ -16,9 +16,3 @@ addon/
 app/
 tests/
 config/
-dist/tests/
-dist/index.htm
-dist/testem.js
-dist/assets/dummy.*
-dist/assets/*.png
-dist/assets/test*
