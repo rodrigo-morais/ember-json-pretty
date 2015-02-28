@@ -17,7 +17,6 @@ app/
 tests/
 config/
 tmp/
-vendor/
 blueprints/
 dist/fonts/
 dist/tests/
