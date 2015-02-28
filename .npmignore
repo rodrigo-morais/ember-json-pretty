@@ -1,10 +1,17 @@
  bower_components/
+ tests/
 
 .bowerrc
 .editorconfig
 .ember-cli
+.gitignore
+.jshintrc
 .travis.yml
 .npmignore
 **/.gitkeep
 bower.json
 Brocfile.js
+
+node_modules/
+tmp/
+config/
