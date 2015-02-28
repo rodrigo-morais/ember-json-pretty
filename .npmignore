@@ -16,7 +16,6 @@ addon/
 app/
 tests/
 config/
-tmp/
 blueprints/
 dist/tests/
 dist/index.htm
