@@ -35,13 +35,13 @@ Ember.Route.extend({
 
 Is possible inform some options to change the style of component.
 
-*keyColor - change the color of a key in JSON object printed. The standard color is #A52A2A.
-*keyHighlight - change the highlight color of a key in JSON object printed. The standard color is #FFFFFF.
-*valueColor - change the color of a value in JSON object printed. The standard color is #000080.
-*valueHighlight - change the highlight color of a value in JSON object printed. The standard color is #FFFFFF.
-*stringColor - change the color of a string value in JSON object printed. The standard color is #C0FF3E.
-*stringHighlight - change the highlight color of a string value in JSON object printed. The standard color is #FFFFFF.
-*braceColor - change the color of a brace in JSON object printed. The standard color is #000000.
-*braceHighlight - change the highlight color of a brace in JSON object printed. The standard color is #FFFFFF.
-*bracketColor - change the color of a bracket in JSON object printed. The standard color is #000000.
-*bracketHighlight - change the highlight color of a bracket in JSON object printed. The standard color is #FFFFFF.
+- `keyColor` - change the color of a key in JSON object printed. The standard color is #A52A2A.
+- `keyHighlight` - change the highlight color of a key in JSON object printed. The standard color is #FFFFFF.
+- `valueColor` - change the color of a value in JSON object printed. The standard color is #000080.
+- `valueHighlight` - change the highlight color of a value in JSON object printed. The standard color is #FFFFFF.
+- `stringColor` - change the color of a string value in JSON object printed. The standard color is #C0FF3E.
+- `stringHighlight` - change the highlight color of a string value in JSON object printed. The standard color is #FFFFFF.
+- `braceColor` - change the color of a brace in JSON object printed. The standard color is #000000.
+- `braceHighlight` - change the highlight color of a brace in JSON object printed. The standard color is #FFFFFF.
+- `bracketColor` - change the color of a bracket in JSON object printed. The standard color is #000000.
+- `bracketHighlight` - change the highlight color of a bracket in JSON object printed. The standard color is #FFFFFF.
