@@ -16,7 +16,6 @@ addon/
 app/
 tests/
 config/
-tmp/
 dist/tests/
 dist/index.htm
 dist/testem.js
