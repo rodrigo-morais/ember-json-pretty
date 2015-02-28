@@ -16,7 +16,7 @@ addon/
 app/
 tests/
 config/
-blueprints/
+tmp/
 dist/tests/
 dist/index.htm
 dist/testem.js
