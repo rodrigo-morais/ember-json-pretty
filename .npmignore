@@ -1,27 +1,10 @@
-bower_components/
+ bower_components/
 
 .bowerrc
 .editorconfig
 .ember-cli
 .travis.yml
 .npmignore
-.jshintrc
 **/.gitkeep
 bower.json
 Brocfile.js
-testem.json
-node_modules/
-
-addon/
-app/
-tests/
-config/
-tmp/
-blueprints/
-dist/fonts/
-dist/tests/
-dist/index.htm
-dist/testem.js
-dist/assets/dummy.*
-dist/assets/*.png
-dist/assets/test*
