@@ -18,7 +18,6 @@ tests/
 config/
 tmp/
 blueprints/
-dist/fonts/
 dist/tests/
 dist/index.htm
 dist/testem.js
