@@ -143,7 +143,6 @@ var _createObject = function(obj, numberSpacesInitial, options) {
             elements: [],
             lines: []
         },
-        jsonObj = {},
         numberSpaces = numberSpacesInitial;
 
     jsonLine = _addBrace('{', numberSpacesInitial, true, options['braceColor'], options['braceHighlight']);
@@ -175,8 +174,7 @@ var _createObject = function(obj, numberSpacesInitial, options) {
         newValue = _addValue(obj[key], numberSpaces, hasComma, options);
 
         if(Array.isArray(newValue) && newValue[0].elements[newValue[0].elements.length - 1].class === 'json-brace'){
-            var openBrace = newValue[0].elements[newValue[0].elements.length - 1],
-                closeBrace = newValue[1].elements[newValue[0].elements.length - 1];
+            var openBrace = newValue[0].elements[newValue[0].elements.length - 1];
             
             internalJsonLine
                 .elements
@@ -411,10 +409,10 @@ export default Ember.Component.extend({
      
         if(this.options){
             if(typeof this.options === 'object'){
-                options = $.extend({}, this.optionsDefault, this.options);
+                options = Ember.$.extend({}, this.optionsDefault, this.options);
             }
             else{
-                options = $.extend({}, this.optionsDefault, JSON.parse(this.options));
+                options = Ember.$.extend({}, this.optionsDefault, JSON.parse(this.options));
             }
         }
         else{
