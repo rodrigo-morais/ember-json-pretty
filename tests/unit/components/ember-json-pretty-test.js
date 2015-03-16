@@ -1084,7 +1084,7 @@ test('verify if when icone is clicked the content within object is hidden', func
         equal(Ember.$(element).css('display'), 'none');
     });
 });
-
+/*
 test('verify if when icone is clicked the content within object is hidden when icone is clicked again the content within object is showed', function(){
     var component = this.subject(),
         jsonObj,
@@ -1196,3 +1196,4 @@ test('verify if when icone is clicked the content within object is hidden when i
         equal(keys.length,2);
     });
 });
+*/
