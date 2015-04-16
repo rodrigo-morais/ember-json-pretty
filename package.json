@@ -45,5 +45,8 @@
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "dependencies": {
+    "ember-cli-font-awesome": "0.0.9"
   }
 }
