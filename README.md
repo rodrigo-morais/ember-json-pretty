@@ -33,6 +33,21 @@ Ember.Route.extend({
 
 ------ template ------
 {{ ember-json-pretty jsonObj=this.model }}
+
+
+------ template with options ------
+{{ ember-json-pretty jsonObj=this.model.menus
+    options='{
+        "keyColor":"#00FF7F",
+        "keyHighlight":"#FAFAD2",
+        "valueColor":"#FF0000",
+        "valueHighlight":"#FFE4E1",
+        "stringColor":"#551A8B",
+        "stringHighlight":"#FFD39B",
+        "braceColor":"#8B864E",
+        "braceHighlight":"#FFD39B",
+        "bracketColor":"#FFB90F",
+        "bracketHighlight":"#90EE90"}' }}
 ```
 
 Is possible inform some options to change the style of component.
