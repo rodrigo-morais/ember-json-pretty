@@ -284,7 +284,7 @@ var _createJSONTree = function(obj, numberSpaces, options, hasComma) {
         obj.forEach(function(newObj, index){
             var newObject;
 
-            if(typeof newObj === 'string')
+            if(typeof newObj === 'string' || typeof newObj === 'number')
             {
                 var internalJsonLine = {
                     elements: [],

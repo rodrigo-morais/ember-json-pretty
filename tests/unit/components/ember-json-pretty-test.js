@@ -1196,3 +1196,28 @@ test('verify when JSON object informed is a text if there are two keys in JSON o
     
     equal(keys.length,2);
 });
+
+test('verify when number are informed they are presented as string', function(){
+var component = this.subject(),
+        jsonObj,
+        code, keys;
+
+    Ember.run(function(){
+        jsonObj = {
+            "loc": [
+                -84.2479169,
+                34.0592993
+            ]
+        };
+        component
+            .set(
+                'jsonObj',
+                jsonObj
+            );
+    });
+
+    code = this.$();
+    keys = Ember.$(code).find('.json-string');
+    
+    equal(keys.length,2);
+});
